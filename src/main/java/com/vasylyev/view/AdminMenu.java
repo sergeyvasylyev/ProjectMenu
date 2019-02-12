@@ -10,15 +10,13 @@ import java.io.InputStreamReader;
 public class AdminMenu {
 
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    //private final ClientService clientService = new ClientServiceImpl();
-    private ClientService clientService = new ClientServiceImpl();
+    private final ClientService clientService = new ClientServiceImpl();
 
     public void show() throws IOException {
         while(true) {
             showMenu();
             switch (br.readLine()) {
                 case "1":
-                    //System.out.println("Add client");
                     createClent();
                     break;
                 case "2":
