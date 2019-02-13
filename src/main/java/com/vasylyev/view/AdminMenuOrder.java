@@ -1,37 +1,32 @@
 package com.vasylyev.view;
 
 import com.vasylyev.services.OrderService;
-import com.vasylyev.services.ProductService;
 import com.vasylyev.services.impl.OrderServiceImpl;
-import com.vasylyev.services.impl.ProductServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import static com.vasylyev.view.CommonMethods.InputString;
 
-public class ClientMenu {
+public class AdminMenuOrder {
 
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private final ProductService productService = new ProductServiceImpl();
     private final OrderService orderService = new OrderServiceImpl();
 
     public void show() throws IOException {
         boolean isRunning = true;
-        while (isRunning) {
+        while(isRunning) {
             showMenu();
             switch (br.readLine()) {
                 case "1":
-                    findProduct();
+                    createOrder();
                     break;
                 case "2":
-                    getProductsList();
+                    deleteOrder();
                     break;
                 case "3":
-                    findOrder();
-                    break;
-                case "4":
                     getOrdersList();
                     break;
                 case "9":
@@ -47,16 +42,27 @@ public class ClientMenu {
         }
     }
 
-    private void findProduct()  throws IOException {
-        String name = InputString("Input name to find product: ");
-        productService.findProduct(name);
+    private void createOrder() throws IOException {
+        String clientName = InputString("Input client name to create order: ");
+        ArrayList<String> productList = new ArrayList<String>();
+        boolean isRunning = true;
+        while (isRunning) {
+            String productName = InputString("Input product name to add to the order (Press 0 to skip): ");
+            if (productName.equals("0")) {
+                isRunning = false;
+                break;
+            } else {
+                productList.add(productName);
+            }
+        }
+        orderService.createOrder(clientName, productList);
     }
 
-    private void getProductsList(){
-        productService.getProductsList();
+    private void getOrdersList(){
+        orderService.getOrdersList();
     }
 
-    private void findOrder() throws IOException {
+    private void deleteOrder() throws IOException {
         Long id = new Long(0);
         try{
             id = Long.valueOf(InputString("Input id to find order: "));
@@ -64,21 +70,15 @@ public class ClientMenu {
             System.err.println("Invalid Format!");
             return;
         }
-        orderService.findOrder(id);
+        orderService.deleteOrder(id);
     }
 
-    private void getOrdersList(){
-        orderService.getOrdersList();
-    }
 
     private void showMenu() {
-        System.out.println("1. Find product");
-        System.out.println("2. Show list of products");
-        System.out.println("3. Find order");
-        System.out.println("4. Show list of orders");
+        System.out.println("1. Add order");
+        System.out.println("2. Remove order");
+        System.out.println("3. List all orders");
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }
-
-
 }

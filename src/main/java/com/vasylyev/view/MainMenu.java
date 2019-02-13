@@ -20,14 +20,13 @@ public class MainMenu {
 
             InputStreamReader in = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(in);
-            //можно попробовать через Scanner считать данные
+
             switch (br.readLine()){
                 case "1":
-                    //System.out.println("SHOW ADMIN MENU");
                     adminMenu.show();
                     break;
                 case "2":
-                    System.out.println("SHOW CLIENT MENU");
+                    clientMenu.show();
                     break;
                 case "0":
                     isRunning = false;

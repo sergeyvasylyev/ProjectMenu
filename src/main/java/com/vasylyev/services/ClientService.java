@@ -2,10 +2,23 @@ package com.vasylyev.services;
 
 public interface ClientService {
     /*
-    * add documentation
+    * add client with name, surname, phone
     * */
     void createClient(String name, String surname, String phone);
 
-    void deleteClient();
+    /*
+     * modify client with name
+     * */
+    void modifyClient(String name, String newName);
+
+    /*
+     * delete client with name
+     * */
+    void deleteClient(String name);
+
+    /*
+     * get clients list
+     * */
+    void getClientsList();
 
 }

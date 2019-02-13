@@ -10,28 +10,31 @@ import java.io.InputStreamReader;
 public class AdminMenu {
 
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    //private final ClientService clientService = new ClientServiceImpl();
-    private ClientService clientService = new ClientServiceImpl();
+    private final ClientService clientService = new ClientServiceImpl();
 
     public void show() throws IOException {
-        while(true) {
+        boolean isRunning = true;
+        while(isRunning) {
             showMenu();
             switch (br.readLine()) {
                 case "1":
-                    //System.out.println("Add client");
-                    createClent();
+                    AdminMenuClient adminMenuClient = new AdminMenuClient();
+                    adminMenuClient.show();
                     break;
                 case "2":
-                    System.out.println("Modify client");
+                    AdminMenuProduct adminMenuProduct = new AdminMenuProduct();
+                    adminMenuProduct.show();
                     break;
                 case "3":
-                    System.out.println("Remove client");
+                    AdminMenuOrder adminMenuOrder = new AdminMenuOrder();
+                    adminMenuOrder.show();
                     break;
-                case "4":
-                    System.out.println("List all clients");
+                case "9":
+                    isRunning = false;
                     break;
                 case "0":
-                    return;
+                    System.exit(0);
+                    break;
                 default:
                     System.out.println("Wrong input!");
                     break;
@@ -39,22 +42,12 @@ public class AdminMenu {
         }
     }
 
-    private void createClent() throws IOException {
-        System.out.println("Input name: ");
-        String name = br.readLine();
-        System.out.println("Input surname: ");
-        String surname = br.readLine();
-        System.out.println("Input phone: ");
-        String phone = br.readLine();
-        clientService.createClient(name, surname, phone);
-    }
-
     private void showMenu() {
-        System.out.println("1. Add client");
-        System.out.println("2. Modify client");
-        System.out.println("3. Remove client");
-        System.out.println("4. List all clients");
+        System.out.println("1. Admin Client MENU");
+        System.out.println("2. Admin Product MENU");
+        System.out.println("3. Admin Order MENU");
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }
+
 }
