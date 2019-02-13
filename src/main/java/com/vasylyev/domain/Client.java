@@ -16,7 +16,6 @@ public class Client {
     }
 
     public Client(String name, String surname, int age, String email, String phone) {
-
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -83,4 +82,5 @@ public class Client {
                 ", phone='" + phone + '\'' +
                 '}';
     }
+
 }

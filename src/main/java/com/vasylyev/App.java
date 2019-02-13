@@ -1,7 +1,6 @@
 package com.vasylyev;
 
 import com.vasylyev.view.MainMenu;
-
 import java.io.IOException;
 
 public class App {
