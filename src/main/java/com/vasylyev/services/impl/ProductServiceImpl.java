@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
     public void deleteProduct(String name) {
         Product tempProduct = productDao.findProduct(name);
         System.out.println("Found product: " + tempProduct);
@@ -34,11 +35,13 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
     public void findProduct(String name) {
         Product tempProduct = productDao.findProduct(name);
         System.out.println("Found product: " + tempProduct);
     }
 
+    @Override
     public void getProductsList(){
         List<Product> productList = productDao.getProductList();
         for (int i = 0; i < productList.size(); i++) {

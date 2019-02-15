@@ -26,6 +26,7 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    @Override
     public void deleteClient(String name) {
         Client tempClient = clientDao.findClient(name);
         System.out.println("Found client: " + tempClient);
@@ -34,6 +35,7 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    @Override
     public void getClientsList(){
         List<Client> clientList = clientDao.getClientsList();
         for (int i = 0; i < clientList.size(); i++) {

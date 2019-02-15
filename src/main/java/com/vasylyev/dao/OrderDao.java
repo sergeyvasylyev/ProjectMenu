@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface OrderDao {
-
-    /*
-     * to save order list
-     * */
-    List<Order> orderList = new ArrayList();
-
     /*
      * save Order by link
      * */

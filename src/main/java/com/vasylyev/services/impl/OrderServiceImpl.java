@@ -21,36 +21,6 @@ public class OrderServiceImpl implements OrderService {
     private final ProductDao productDao = new ProductDaoImpl();
 
     @Override
-    public void createOrder(Client client) {
-        Order order = new Order(client);
-        orderDao.saveOrder(order);
-    }
-
-    @Override
-    public void createOrder(String clientName) {
-        Client client = clientDao.findClient(clientName);
-        System.out.println("Found client: " + client);
-        if (client != null) {
-            Order order = new Order(client);
-            orderDao.saveOrder(order);
-        }
-    }
-
-    public void createOrder(Client client, List<String> productNameList){
-        List<Product> productListOrder = null;
-        if (productNameList != null) {
-            for (int i = 0; i < productNameList.size(); i++) {
-                Product tempProduct = productDao.findProduct(productNameList.get(i));
-                if (tempProduct != null) {
-                    productListOrder.add(tempProduct);
-                }
-                System.out.println("Found product to create order: " + tempProduct);
-            }
-        }
-        Order order = new Order(client, productListOrder);
-        orderDao.saveOrder(order);
-    }
-
     public void createOrder(String clientName, List<String> productNameList){
         Client client = clientDao.findClient(clientName);
         System.out.println("Found client: " + client);
@@ -71,10 +41,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void modifyOrder(String number, String newNumber) {
-
-    }
-
     public void findOrder(Long id) {
         Order tempOrder = orderDao.findOrder(id);
         System.out.println("Found order: " + tempOrder);

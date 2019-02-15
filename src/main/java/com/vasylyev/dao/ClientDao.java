@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ClientDao {
-
-    //to save clients list
-    List<Client> clientList = new ArrayList();
-
     /*
     * save Client by link
     * */
