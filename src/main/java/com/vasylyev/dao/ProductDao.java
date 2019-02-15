@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductDao {
-
-    /*
-    * to save product list
-    * */
-    List<Product> productList = new ArrayList();
-
     /*
      * save product by link
      * */

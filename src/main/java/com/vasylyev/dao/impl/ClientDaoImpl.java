@@ -3,17 +3,22 @@ package com.vasylyev.dao.impl;
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.domain.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDaoImpl implements ClientDao {
 
+   private List<Client> clientList = new ArrayList<>();
+
+   @Override
    public void saveClient(Client client) {
        client.setId(getMaxId() + 1);
        System.out.println("Save client: "+client.getName());
        clientList.add(client);
    }
 
-    public Client findClient(String clientName){
+   @Override
+   public Client findClient(String clientName){
         for (int i = 0; i < clientList.size(); i++) {
             Client foundClient = clientList.get(i);
             if (clientName.equals(foundClient.getName())){
@@ -21,18 +26,21 @@ public class ClientDaoImpl implements ClientDao {
             };
         }
         return null;
-    }
+   }
 
-    public void modifyClient(Client client, String newName){
+   @Override
+   public void modifyClient(Client client, String newName){
         client.setName(newName);
         System.out.println("Save client: "+client.getName());
-    }
+   }
 
-    public List<Client> getClientsList(){
+   @Override
+   public List<Client> getClientsList(){
        return clientList;
     }
 
-    public void deleteClient(Client client){
+   @Override
+   public void deleteClient(Client client){
         for (int i = 0; i < clientList.size(); i++) {
             Client foundClient = clientList.get(i);
             if (client.equals(foundClient)){
@@ -41,9 +49,9 @@ public class ClientDaoImpl implements ClientDao {
                 break;
             };
         }
-    }
+   }
 
-    private long getMaxId(){
+   private long getMaxId(){
         long maxId = 0;
         for (int i = 0; i < clientList.size(); i++) {
             Client foundClient = clientList.get(i);
@@ -52,5 +60,5 @@ public class ClientDaoImpl implements ClientDao {
             }
         }
         return maxId;
-    }
+   }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
 
+    private List<Order> orderList = new ArrayList<>();
+
     @Override
     public void saveOrder(Order order) {
         order.setId(getMaxId() + 1);
