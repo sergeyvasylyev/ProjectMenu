@@ -18,9 +18,6 @@ public class MainMenu {
             System.out.println("2. Client");
             System.out.println("0. Exit");
 
-            InputStreamReader in = new InputStreamReader(System.in);
-            BufferedReader br = new BufferedReader(in);
-
             switch (br.readLine()){
                 case "1":
                     adminMenu.show();
