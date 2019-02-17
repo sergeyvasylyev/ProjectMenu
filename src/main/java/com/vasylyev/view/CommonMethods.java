@@ -12,4 +12,15 @@ public class CommonMethods {
         System.out.println(messageToShow);
         return br.readLine();
     }
+
+    public static int readInt(){
+        try{
+            return Integer.parseInt(InputString("Input age: "));
+        }catch(IOException | NumberFormatException nfe){
+            System.err.println("Invalid Format!");
+            return readInt();
+        }
+    }
+
+
 }

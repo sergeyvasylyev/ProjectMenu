@@ -17,7 +17,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderDao orderDao = new OrderDaoImpl();
-    private final ClientDao clientDao = new ClientDaoImpl();
+    //private final ClientDao clientDao = new ClientDaoImpl();
+    private ClientDao clientDao = ClientDaoImpl.getInstance();
     private final ProductDao productDao = new ProductDaoImpl();
 
     @Override

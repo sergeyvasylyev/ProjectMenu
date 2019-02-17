@@ -9,8 +9,15 @@ import java.io.InputStreamReader;
 
 public class AdminMenu {
 
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private final ClientService clientService = new ClientServiceImpl();
+    //private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    //private final ClientService clientService = new ClientServiceImpl();
+    private final BufferedReader br;
+    private final ClientService clientService;
+
+    public AdminMenu(BufferedReader br, ClientService clientService) {
+        this.br = br;
+        this.clientService = clientService;
+    }
 
     public void show() throws IOException {
         boolean isRunning = true;
@@ -18,7 +25,7 @@ public class AdminMenu {
             showMenu();
             switch (br.readLine()) {
                 case "1":
-                    AdminMenuClient adminMenuClient = new AdminMenuClient();
+                    AdminMenuClient adminMenuClient = new AdminMenuClient(br, clientService);
                     adminMenuClient.show();
                     break;
                 case "2":
