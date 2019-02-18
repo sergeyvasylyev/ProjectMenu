@@ -1,7 +1,7 @@
 package com.vasylyev.view;
 
+import com.vasylyev.domain.Client;
 import com.vasylyev.services.ClientService;
-import com.vasylyev.services.impl.ClientServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +11,15 @@ import static com.vasylyev.view.CommonMethods.InputString;
 
 public class AdminMenuClient {
 
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private final ClientService clientService = new ClientServiceImpl();
+    //private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    //private final ClientService clientService = new ClientServiceImpl();
+    private final BufferedReader br;
+    private final ClientService clientService;
+
+    public AdminMenuClient(BufferedReader br, ClientService clientService) {
+        this.br = br;
+        this.clientService = clientService;
+    }
 
     public void show() throws IOException {
         boolean isRunning = true;
@@ -47,8 +54,11 @@ public class AdminMenuClient {
     private void createClient() throws IOException {
         String name = InputString("Input name: ");
         String surname = InputString("Input surname: ");
+        int age = Integer.parseInt(InputString("Input age: "));
+        //int age = readInt();
         String phone = InputString("Input phone: ");
-        clientService.createClient(name, surname, phone);
+        String email = InputString("Input email: ");
+        clientService.createClient(name, surname, age, phone, email);
     }
 
     private void modifyClient()  throws IOException {
@@ -58,7 +68,13 @@ public class AdminMenuClient {
     }
 
     private void getClientsList(){
-        clientService.getClientsList();
+        //clientService.getClientsList();
+        int numberOfClients = 0;
+        for (Client client : clientService.GetAllClients()) {
+            System.out.println(client.toString());
+            numberOfClients++;
+        }
+        System.out.println("Number of clients: " + numberOfClients);
     }
 
     private void deleteClient() throws IOException {
@@ -74,4 +90,14 @@ public class AdminMenuClient {
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }
+/*
+    private int readInt(){
+        try{
+            return Integer.parseInt(InputString("Input age: "));
+        }catch(IOException | NumberFormatException nfe){
+            System.err.println("Invalid Format!");
+            return readInt();
+        }
+    }
+    */
 }

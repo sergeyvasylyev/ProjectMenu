@@ -1,10 +1,18 @@
 package com.vasylyev.services;
 
+import com.vasylyev.domain.Client;
+
+import java.util.List;
+
 public interface ClientService {
+
+
     /*
     * add client with name, surname, phone
     * */
     void createClient(String name, String surname, String phone);
+
+    void createClient(String name, String surname, int age, String phone, String email);
 
     /*
      * modify client with name
@@ -21,4 +29,8 @@ public interface ClientService {
      * */
     void getClientsList();
 
+    /*
+    *
+    *  */
+    List<Client> GetAllClients();
 }

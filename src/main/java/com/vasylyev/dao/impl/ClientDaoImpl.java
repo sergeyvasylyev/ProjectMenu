@@ -4,17 +4,30 @@ import com.vasylyev.dao.ClientDao;
 import com.vasylyev.domain.Client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClientDaoImpl implements ClientDao {
 
+   private static ClientDao clientDao = new ClientDaoImpl();
+
    private List<Client> clientList = new ArrayList<>();
+
+   private Map<Long, Client> map = new HashMap<>();
+   private static long generator = 0;
+
+   private ClientDaoImpl(){
+
+   }
 
    @Override
    public void saveClient(Client client) {
-       client.setId(getMaxId() + 1);
+       //client.setId(getMaxId() + 1);
+       //clientList.add(client);
+       client.setId(generator++);
        System.out.println("Save client: "+client.getName());
-       clientList.add(client);
+       map.put(client.getId(), client);
    }
 
    @Override
@@ -36,7 +49,8 @@ public class ClientDaoImpl implements ClientDao {
 
    @Override
    public List<Client> getClientsList(){
-       return clientList;
+       return new ArrayList<>(map.values());
+       //return clientList;
     }
 
    @Override
@@ -60,5 +74,9 @@ public class ClientDaoImpl implements ClientDao {
             }
         }
         return maxId;
+   }
+
+   public static ClientDao getInstance(){
+       return clientDao;
    }
 }
