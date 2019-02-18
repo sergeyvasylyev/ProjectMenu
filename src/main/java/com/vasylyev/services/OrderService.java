@@ -1,6 +1,7 @@
 package com.vasylyev.services;
 
 import com.vasylyev.domain.Client;
+import com.vasylyev.domain.Order;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface OrderService {
     /*
      * get Order list
      * */
-    void getOrdersList();
+    List<Order> GetAllOrders();
 
 
 }

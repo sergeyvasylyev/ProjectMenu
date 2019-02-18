@@ -4,12 +4,21 @@ import com.vasylyev.dao.ProductDao;
 import com.vasylyev.dao.impl.ProductDaoImpl;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.ProductService;
+import com.vasylyev.validators.ValidationService;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductDao productDao = new ProductDaoImpl();
+    private ProductDao productDao;
+    private ValidationService validationService;
+
+    //dependency injection
+    public ProductServiceImpl(ProductDao clientDao, ValidationService validationService)   {
+        this.productDao = clientDao;
+        this.validationService = validationService;
+    }
 
     @Override
     public void createProduct(String name, BigDecimal price) {
@@ -42,12 +51,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void getProductsList(){
-        List<Product> productList = productDao.getProductList();
-        for (int i = 0; i < productList.size(); i++) {
-            System.out.println(productList.get(i).toString());
-        }
-        System.out.println("Number of products: " + productList.size());
-    }
+    public List<Product> GetAllProducts(){
+        return productDao.getProductList();
+    };
 
 }

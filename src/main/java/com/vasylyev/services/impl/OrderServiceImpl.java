@@ -10,16 +10,23 @@ import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.OrderService;
+import com.vasylyev.validators.ValidationService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
 
-    private final OrderDao orderDao = new OrderDaoImpl();
-    //private final ClientDao clientDao = new ClientDaoImpl();
     private ClientDao clientDao = ClientDaoImpl.getInstance();
-    private final ProductDao productDao = new ProductDaoImpl();
+    private ProductDao productDao = ProductDaoImpl.getInstance();
+    private OrderDao orderDao = OrderDaoImpl.getInstance();
+    private ValidationService validationService;
+
+    //dependency injection
+    public OrderServiceImpl(OrderDao orderDao, ValidationService validationService)   {
+        this.orderDao = orderDao;
+        this.validationService = validationService;
+    }
 
     @Override
     public void createOrder(String clientName, List<String> productNameList){
@@ -57,11 +64,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void getOrdersList() {
-        List<Order> orderList = orderDao.getOrderList();
-        for (int i = 0; i < orderList.size(); i++) {
-            System.out.println(orderList.get(i).toString());
-        }
-        System.out.println("Number of orders: " + orderList.size());
-    }
+    public List<Order> GetAllOrders(){
+        return orderDao.getOrderList();
+    };
+
 }

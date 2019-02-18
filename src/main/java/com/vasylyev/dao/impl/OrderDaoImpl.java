@@ -3,23 +3,31 @@ package com.vasylyev.dao.impl;
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.domain.Order;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
 
-    private List<Order> orderList = new ArrayList<>();
+    private static OrderDao orderDao = new OrderDaoImpl();
+
+    private Map<Long, Order> map = new HashMap<>();
+    private static long generator = 0;
+
+    private OrderDaoImpl(){
+    }
 
     @Override
     public void saveOrder(Order order) {
-        order.setId(getMaxId() + 1);
+        order.setId(generator++);
         System.out.println("Save order: "+order.getId());
-        orderList.add(order);
+        map.put(order.getId(), order);
     }
 
     @Override
     public Order findOrder(Long id) {
-        for (int i = 0; i < orderList.size(); i++) {
-            Order foundOrder = orderList.get(i);
+        for (int i = 0; i < map.size(); i++) {
+            Order foundOrder = map.get(Long.valueOf(i));
             if (id == foundOrder.getId()){
                 return foundOrder;
             };
@@ -29,29 +37,22 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getOrderList() {
-        return orderList;
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public void deleteOrder(Order order) {
-        for (int i = 0; i < orderList.size(); i++) {
-            Order foundOrder = orderList.get(i);
+        for (int i = 0; i < map.size(); i++) {
+            Order foundOrder = map.get(Long.valueOf(i));
             if (order.equals(foundOrder)){
                 System.out.println("Remove order: "+order.getId());
-                orderList.remove(i);
+                map.remove(Long.valueOf(i));
                 break;
             };
         }
     }
 
-    private long getMaxId(){
-        long maxId = 0;
-        for (int i = 0; i < orderList.size(); i++) {
-            Order foundOrder = orderList.get(i);
-            if (foundOrder.getId() > maxId){
-                maxId = foundOrder.getId();
-            }
-        }
-        return maxId;
+    public static OrderDao getInstance(){
+        return orderDao;
     }
 }

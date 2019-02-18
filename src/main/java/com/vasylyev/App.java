@@ -1,9 +1,17 @@
 package com.vasylyev;
 
 import com.vasylyev.dao.ClientDao;
+import com.vasylyev.dao.OrderDao;
+import com.vasylyev.dao.ProductDao;
 import com.vasylyev.dao.impl.ClientDaoImpl;
+import com.vasylyev.dao.impl.OrderDaoImpl;
+import com.vasylyev.dao.impl.ProductDaoImpl;
 import com.vasylyev.services.ClientService;
+import com.vasylyev.services.OrderService;
+import com.vasylyev.services.ProductService;
 import com.vasylyev.services.impl.ClientServiceImpl;
+import com.vasylyev.services.impl.OrderServiceImpl;
+import com.vasylyev.services.impl.ProductServiceImpl;
 import com.vasylyev.validators.ValidationService;
 import com.vasylyev.validators.impl.ValidationServiceImpl;
 import com.vasylyev.view.AdminMenu;
@@ -17,17 +25,20 @@ import java.io.InputStreamReader;
 public class App {
 
     public static void main(String[] args) throws IOException {
-        //MainMenu menu = new MainMenu();
 
         ClientDao clientDao = ClientDaoImpl.getInstance();
+        ProductDao productDao = ProductDaoImpl.getInstance();
+        OrderDao orderDao = OrderDaoImpl.getInstance();
 
         ValidationService validationService = new ValidationServiceImpl();
 
         ClientService clientService = new ClientServiceImpl(clientDao, validationService);
+        ProductService productService = new ProductServiceImpl(productDao, validationService);
+        OrderService orderService = new OrderServiceImpl(orderDao, validationService);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        AdminMenu adminMenu = new AdminMenu(br, clientService);
-        ClientMenu clientMenu = new ClientMenu(br, clientService);
+        AdminMenu adminMenu = new AdminMenu(br, clientService, productService, orderService);
+        ClientMenu clientMenu = new ClientMenu(br, clientService, productService, orderService);
 
 
         MainMenu menu = new MainMenu(br, adminMenu, clientMenu);
