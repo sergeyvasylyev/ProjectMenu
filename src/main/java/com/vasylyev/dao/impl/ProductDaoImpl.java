@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ProductDaoImpl implements ProductDao {
 
-    private static ProductDao productDao = new ProductDaoImpl();
+    private static ProductDao productDao;
 
     private Map<Long, Product> map = new HashMap<>();
     private static long generator = 0;
@@ -63,6 +63,9 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public static ProductDao getInstance(){
+        if (productDao == null) {
+            productDao = new ProductDaoImpl();
+        }
         return productDao;
     }
 

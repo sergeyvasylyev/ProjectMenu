@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
 
-    private static OrderDao orderDao = new OrderDaoImpl();
+    private static OrderDao orderDao;
 
     private Map<Long, Order> map = new HashMap<>();
     private static long generator = 0;
@@ -53,6 +53,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     public static OrderDao getInstance(){
+        if (orderDao == null){
+            orderDao = new OrderDaoImpl();
+        }
         return orderDao;
     }
 }

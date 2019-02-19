@@ -87,7 +87,7 @@ public class ClientMenu {
     }
 
     private void createOrder() throws IOException {
-        String clientName = InputString("Input client name to create order: ");
+        long clientId = readLong("Input id to find client: ");
         ArrayList<String> productList = new ArrayList<String>();
         boolean isRunning = true;
         while (isRunning) {
@@ -99,7 +99,7 @@ public class ClientMenu {
                 productList.add(productName);
             }
         }
-        orderService.createOrder(clientName, productList);
+        orderService.createOrder(clientId, productList);
     }
 
     private void getOrdersList(){

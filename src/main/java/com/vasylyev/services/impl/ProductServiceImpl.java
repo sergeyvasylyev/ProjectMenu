@@ -14,7 +14,6 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
     private ValidationService validationService;
 
-    //dependency injection
     public ProductServiceImpl(ProductDao clientDao, ValidationService validationService)   {
         this.productDao = clientDao;
         this.validationService = validationService;

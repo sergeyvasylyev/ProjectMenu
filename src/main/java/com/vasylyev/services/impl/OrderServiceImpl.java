@@ -22,15 +22,15 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao = OrderDaoImpl.getInstance();
     private ValidationService validationService;
 
-    //dependency injection
+
     public OrderServiceImpl(OrderDao orderDao, ValidationService validationService)   {
         this.orderDao = orderDao;
         this.validationService = validationService;
     }
 
     @Override
-    public void createOrder(String clientName, List<String> productNameList){
-        Client client = clientDao.findClient(clientName);
+    public void createOrder(Long id, List<String> productNameList){
+        Client client = clientDao.findClient(id);
         System.out.println("Found client: " + client);
         if (client != null) {
             ArrayList<Product> productListOrder = new ArrayList<Product>();
