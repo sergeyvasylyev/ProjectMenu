@@ -1,22 +1,35 @@
 package com.vasylyev.view;
 
+import com.vasylyev.domain.Client;
+import com.vasylyev.domain.Order;
+import com.vasylyev.domain.Product;
 import com.vasylyev.services.ClientService;
+import com.vasylyev.services.OrderService;
+import com.vasylyev.services.ProductService;
 import com.vasylyev.services.impl.ClientServiceImpl;
+import com.vasylyev.services.impl.OrderServiceImpl;
+import com.vasylyev.services.impl.ProductServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+import static com.vasylyev.view.CommonMethods.*;
 
 public class AdminMenu {
 
-    //private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    //private final ClientService clientService = new ClientServiceImpl();
     private final BufferedReader br;
     private final ClientService clientService;
+    private final ProductService productService;
+    private final OrderService orderService;
 
-    public AdminMenu(BufferedReader br, ClientService clientService) {
+    public AdminMenu(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService) {
         this.br = br;
         this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
     }
 
     public void show() throws IOException {
@@ -25,21 +38,42 @@ public class AdminMenu {
             showMenu();
             switch (br.readLine()) {
                 case "1":
-                    AdminMenuClient adminMenuClient = new AdminMenuClient(br, clientService);
-                    adminMenuClient.show();
+                    createClient();
                     break;
                 case "2":
-                    AdminMenuProduct adminMenuProduct = new AdminMenuProduct();
-                    adminMenuProduct.show();
+                    modifyClient();
                     break;
                 case "3":
-                    AdminMenuOrder adminMenuOrder = new AdminMenuOrder();
-                    adminMenuOrder.show();
+                    deleteClient();
+                    break;
+                case "4":
+                    getClientsList();
+                    break;
+                case "5":
+                    createProduct();
+                    break;
+                case "6":
+                    modifyProduct();
+                    break;
+                case "7":
+                    deleteProduct();
+                    break;
+                case "8":
+                    getProductsList();
                     break;
                 case "9":
+                    createOrder();
+                    break;
+                case "10":
+                    deleteOrder();
+                    break;
+                case "11":
+                    getOrdersList();
+                    break;
+                case "R":
                     isRunning = false;
                     break;
-                case "0":
+                case "E":
                     System.exit(0);
                     break;
                 default:
@@ -49,12 +83,123 @@ public class AdminMenu {
         }
     }
 
+    //Clients
+    private void createClient() throws IOException {
+        String name = InputString("Input name: ");
+        String surname = InputString("Input surname: ");
+        int age = readInt("Input age: ");
+        String phone = InputString("Input phone: ");
+        String email = InputString("Input email: ");
+        clientService.createClient(name, surname, age, email, phone);
+    }
+
+    private void modifyClient()  throws IOException {
+        long clientId = readLong("Input id to find client: ");
+        String newName = InputString("Input new name: ");
+        clientService.modifyClient(clientId, newName);
+    }
+
+    private void getClientsList(){
+        int numberOfClients = 0;
+        for (Client client : clientService.GetAllClients()) {
+            System.out.println(client.toString());
+            numberOfClients++;
+        }
+        System.out.println("Number of clients: " + numberOfClients);
+    }
+
+    private void deleteClient() throws IOException {
+        long clientId = readLong("Input id to find client: ");
+        clientService.deleteClient(clientId);
+    }
+
+    //Products
+    private void createProduct() throws IOException {
+        String name = InputString("Input name: ");
+        BigDecimal price = new BigDecimal(0);
+        try{
+            price = new BigDecimal(InputString("Input price: "));
+        }catch(NumberFormatException nfe){
+            System.err.println("Invalid Format!");
+            return;
+        }
+        productService.createProduct(name, price);
+    }
+
+    private void modifyProduct()  throws IOException {
+        String name = InputString("Input name to find product: ");
+        String newName = InputString("Input new name: ");
+        productService.modifyProduct(name, newName);
+    }
+
+    private void getProductsList(){
+        int numberOfProducts = 0;
+        for (Product product : productService.GetAllProducts()) {
+            System.out.println(product.toString());
+            numberOfProducts++;
+        }
+        System.out.println("Number of products: " + numberOfProducts);
+    }
+
+    private void deleteProduct() throws IOException {
+        String name = InputString("Input name to find product: ");
+        productService.deleteProduct(name);
+    }
+
+    //Orders
+    private void createOrder() throws IOException {
+        String clientName = InputString("Input client name to create order: ");
+        ArrayList<String> productList = new ArrayList<String>();
+        boolean isRunning = true;
+        while (isRunning) {
+            String productName = InputString("Input product name to add to the order (Press 0 to skip): ");
+            if (productName.equals("0")) {
+                isRunning = false;
+                break;
+            } else {
+                productList.add(productName);
+            }
+        }
+        orderService.createOrder(clientName, productList);
+    }
+
+    private void getOrdersList(){
+        int numberOfOrders = 0;
+        for (Order order : orderService.GetAllOrders()) {
+            System.out.println(order.toString());
+            numberOfOrders++;
+        }
+        System.out.println("Number of orders: " + numberOfOrders);
+    }
+
+    private void deleteOrder() throws IOException {
+        Long id = new Long(0);
+        try{
+            id = Long.valueOf(InputString("Input id to find order: "));
+        }catch(NumberFormatException nfe){
+            System.err.println("Invalid Format!");
+            return;
+        }
+        orderService.deleteOrder(id);
+    }
+
     private void showMenu() {
-        System.out.println("1. Admin Client MENU");
-        System.out.println("2. Admin Product MENU");
-        System.out.println("3. Admin Order MENU");
-        System.out.println("9. Return");
-        System.out.println("0. Exit");
+        System.out.println("1. Add client");
+        System.out.println("2. Modify client");
+        System.out.println("3. Remove client");
+        System.out.println("4. List all clients");
+
+        System.out.println("5. Add product");
+        System.out.println("6. Modify product");
+        System.out.println("7. Remove product");
+        System.out.println("8. List all products");
+
+        System.out.println("9. Add order");
+        System.out.println("10. Remove order");
+        System.out.println("11. List all orders");
+
+        System.out.println("R. Return");
+        System.out.println("E. Exit");
     }
 
 }

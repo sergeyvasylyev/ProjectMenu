@@ -8,75 +8,66 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static javax.swing.UIManager.get;
+
 public class ClientDaoImpl implements ClientDao {
 
-   private static ClientDao clientDao = new ClientDaoImpl();
+    private static ClientDao clientDao = new ClientDaoImpl();
 
-   private List<Client> clientList = new ArrayList<>();
+    private Map<Long, Client> map = new HashMap<>();
+    private static long generator = 0;
 
-   private Map<Long, Client> map = new HashMap<>();
-   private static long generator = 0;
+    private ClientDaoImpl(){
+    }
 
-   private ClientDaoImpl(){
+    @Override
+    public void saveClient(Client client) {
+        client.setId(generator++);
+        System.out.println("Save client: "+client.getName());
+        map.put(client.getId(), client);
+    }
 
-   }
-
-   @Override
-   public void saveClient(Client client) {
-       //client.setId(getMaxId() + 1);
-       //clientList.add(client);
-       client.setId(generator++);
-       System.out.println("Save client: "+client.getName());
-       map.put(client.getId(), client);
-   }
-
-   @Override
-   public Client findClient(String clientName){
-        for (int i = 0; i < clientList.size(); i++) {
-            Client foundClient = clientList.get(i);
-            if (clientName.equals(foundClient.getName())){
+    @Override
+    public Client findClient(String phoneNumber){
+        for (int i = 0; i < map.size(); i++) {
+            Client foundClient = map.get(Long.valueOf(i));
+            if (phoneNumber.equals(foundClient.getPhone())){
                 return foundClient;
             };
         }
         return null;
-   }
-
-   @Override
-   public void modifyClient(Client client, String newName){
-        client.setName(newName);
-        System.out.println("Save client: "+client.getName());
-   }
-
-   @Override
-   public List<Client> getClientsList(){
-       return new ArrayList<>(map.values());
-       //return clientList;
     }
 
-   @Override
-   public void deleteClient(Client client){
-        for (int i = 0; i < clientList.size(); i++) {
-            Client foundClient = clientList.get(i);
+    @Override
+    public Client findClient(Long id) {
+        Client foundClient = map.get(id);
+        return foundClient;
+    }
+
+    @Override
+    public void modifyClient(Client client, String newName){
+        client.setName(newName);
+        System.out.println("Save client: "+client.getName());
+    }
+
+    @Override
+    public List<Client> getClientsList(){
+        return new ArrayList<>(map.values());
+    }
+
+    @Override
+    public void deleteClient(Client client){
+        for (int i = 0; i < map.size(); i++) {
+            Client foundClient = map.get(Long.valueOf(i));
             if (client.equals(foundClient)){
                 System.out.println("Remove client: "+client.getName());
-                clientList.remove(i);
+                map.remove(Long.valueOf(i));
                 break;
             };
         }
-   }
+    }
 
-   private long getMaxId(){
-        long maxId = 0;
-        for (int i = 0; i < clientList.size(); i++) {
-            Client foundClient = clientList.get(i);
-            if (foundClient.getId() > maxId){
-                maxId = foundClient.getId();
-            }
-        }
-        return maxId;
-   }
-
-   public static ClientDao getInstance(){
-       return clientDao;
-   }
+    public static ClientDao getInstance(){
+        return clientDao;
+    }
 }

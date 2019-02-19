@@ -4,25 +4,36 @@ import com.vasylyev.dao.ProductDao;
 import com.vasylyev.domain.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDaoImpl implements ProductDao {
 
-    private List<Product> productList = new ArrayList<>();
+    private static ProductDao productDao = new ProductDaoImpl();
+
+    private Map<Long, Product> map = new HashMap<>();
+    private static long generator = 0;
+
+    private ProductDaoImpl(){
+
+    }
 
     @Override
     public void saveProduct(Product product) {
-        product.setId(getMaxId() + 1);
+        product.setId(generator++);
         System.out.println("Save product: "+product.getName());
-        productList.add(product);
+        map.put(product.getId(), product);
     }
 
     @Override
     public Product findProduct(String productName){
-        for (int i = 0; i < productList.size(); i++) {
-            Product foundProduct = productList.get(i);
-            if (productName.equals(foundProduct.getName())){
-                return foundProduct;
+        for (int i = 0; i < map.size(); i++) {
+            Product foundProduct = map.get(Long.valueOf(i));
+            if (foundProduct != null) {
+                if (productName.equals(foundProduct.getName())){
+                    return foundProduct;
+                }
             };
         }
         return null;
@@ -36,29 +47,23 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> getProductList(){
-        return productList;
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public void deleteProduct(Product product){
-        for (int i = 0; i < productList.size(); i++) {
-            Product foundProduct = productList.get(i);
+        for (int i = 0; i < map.size(); i++) {
+            Product foundProduct = map.get(Long.valueOf(i));
             if (product.equals(foundProduct)){
                 System.out.println("Remove product: "+product.getName());
-                productList.remove(i);
+                map.remove(Long.valueOf(i));
                 break;
             };
         }
     }
 
-    private long getMaxId(){
-        long maxId = 0;
-        for (int i = 0; i < productList.size(); i++) {
-            Product foundProduct = productList.get(i);
-            if (foundProduct.getId() > maxId){
-                maxId = foundProduct.getId();
-            }
-        }
-        return maxId;
+    public static ProductDao getInstance(){
+        return productDao;
     }
+
 }

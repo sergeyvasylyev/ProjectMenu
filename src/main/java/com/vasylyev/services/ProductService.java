@@ -1,6 +1,9 @@
 package com.vasylyev.services;
 
+import com.vasylyev.domain.Product;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface ProductService {
 
@@ -27,6 +30,6 @@ public interface ProductService {
     /*
      * get Product list
      * */
-    void getProductsList();
+    List<Product> GetAllProducts();
 
 }
