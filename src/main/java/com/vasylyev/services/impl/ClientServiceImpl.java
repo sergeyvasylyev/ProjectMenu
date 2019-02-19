@@ -14,7 +14,6 @@ public class ClientServiceImpl implements ClientService {
     private ClientDao clientDao;
     private ValidationService validationService;
 
-    //dependency injection
     public ClientServiceImpl(ClientDao clientDao, ValidationService validationService)   {
         this.clientDao = clientDao;
         this.validationService = validationService;
@@ -31,7 +30,7 @@ public class ClientServiceImpl implements ClientService {
             validationService.validateAge(age);
             validationService.validatePhone(phone);
             if (email != null) { validationService.validateEmail(email); }
-            
+
             Client tempClient = clientDao.findClient(phone);
             if (tempClient != null) {
                 System.out.println("Client exist! " + tempClient.toString());

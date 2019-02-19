@@ -119,7 +119,7 @@ public class AdminMenu {
         BigDecimal price = new BigDecimal(0);
         try{
             price = new BigDecimal(InputString("Input price: "));
-        }catch(NumberFormatException nfe){
+        }catch(IOException | NumberFormatException nfe){
             System.err.println("Invalid Format!");
             return;
         }
@@ -148,7 +148,7 @@ public class AdminMenu {
 
     //Orders
     private void createOrder() throws IOException {
-        String clientName = InputString("Input client name to create order: ");
+        long clientId = readLong("Input id to find client: ");
         ArrayList<String> productList = new ArrayList<String>();
         boolean isRunning = true;
         while (isRunning) {
@@ -160,7 +160,7 @@ public class AdminMenu {
                 productList.add(productName);
             }
         }
-        orderService.createOrder(clientName, productList);
+        orderService.createOrder(clientId, productList);
     }
 
     private void getOrdersList(){
@@ -173,14 +173,8 @@ public class AdminMenu {
     }
 
     private void deleteOrder() throws IOException {
-        Long id = new Long(0);
-        try{
-            id = Long.valueOf(InputString("Input id to find order: "));
-        }catch(NumberFormatException nfe){
-            System.err.println("Invalid Format!");
-            return;
-        }
-        orderService.deleteOrder(id);
+        long orderId = readLong("Input id to find order: ");
+        orderService.deleteOrder(orderId);
     }
 
     private void showMenu() {

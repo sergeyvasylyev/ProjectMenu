@@ -10,7 +10,7 @@ public interface OrderService {
     /*
      * add Order with clientName and list of product names
      * */
-    void createOrder(String clientName, List<String> productNameList);
+    void createOrder(Long id, List<String> productNameList);
 
     /*
      * delete Order with name

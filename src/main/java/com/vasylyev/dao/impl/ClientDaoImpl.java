@@ -12,7 +12,7 @@ import static javax.swing.UIManager.get;
 
 public class ClientDaoImpl implements ClientDao {
 
-    private static ClientDao clientDao = new ClientDaoImpl();
+    private static ClientDao clientDao;
 
     private Map<Long, Client> map = new HashMap<>();
     private static long generator = 0;
@@ -68,6 +68,9 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     public static ClientDao getInstance(){
+        if(clientDao == null){
+            clientDao = new ClientDaoImpl();
+        }
         return clientDao;
     }
 }
