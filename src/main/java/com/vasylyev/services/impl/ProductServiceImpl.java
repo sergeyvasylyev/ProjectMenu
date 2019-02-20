@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
     private ValidationService validationService;
 
-    public ProductServiceImpl(ProductDao clientDao, ValidationService validationService)   {
+    public ProductServiceImpl(ProductDao clientDao, ValidationService validationService) {
         this.productDao = clientDao;
         this.validationService = validationService;
     }
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     public void modifyProduct(String name, String newName) {
         Product tempProduct = productDao.findProduct(name);
         System.out.println("Found product: " + tempProduct);
-        if (tempProduct != null){
+        if (tempProduct != null) {
             productDao.modifyProduct(tempProduct, newName);
         }
     }
@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(String name) {
         Product tempProduct = productDao.findProduct(name);
         System.out.println("Found product: " + tempProduct);
-        if (tempProduct != null){
+        if (tempProduct != null) {
             productDao.deleteProduct(tempProduct);
         }
     }
@@ -50,8 +50,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> GetAllProducts(){
+    public List<Product> GetAllProducts() {
         return productDao.getProductList();
-    };
+    }
+
+    ;
 
 }

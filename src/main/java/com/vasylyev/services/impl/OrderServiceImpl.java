@@ -23,13 +23,13 @@ public class OrderServiceImpl implements OrderService {
     private ValidationService validationService;
 
 
-    public OrderServiceImpl(OrderDao orderDao, ValidationService validationService)   {
+    public OrderServiceImpl(OrderDao orderDao, ValidationService validationService) {
         this.orderDao = orderDao;
         this.validationService = validationService;
     }
 
     @Override
-    public void createOrder(Long id, List<String> productNameList){
+    public void createOrder(Long id, List<String> productNameList) {
         Client client = clientDao.findClient(id);
         System.out.println("Found client: " + client);
         if (client != null) {
@@ -58,14 +58,16 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(Long id) {
         Order tempOrder = orderDao.findOrder(id);
         System.out.println("Found order: " + tempOrder);
-        if (tempOrder != null){
+        if (tempOrder != null) {
             orderDao.deleteOrder(tempOrder);
         }
     }
 
     @Override
-    public List<Order> GetAllOrders(){
+    public List<Order> GetAllOrders() {
         return orderDao.getOrderList();
-    };
+    }
+
+    ;
 
 }

@@ -17,15 +17,43 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validateEmail(String email) throws BusinessException {
-        if (!Pattern.matches("[a-zA-Z0-9]{1,}[@]{1,}[a-z]{1,}[.][a-z]{1,}", email)) {
+        if (!Pattern.matches("[a-zA-Z0-9]{1,}@[a-z]{1,}[.][a-z]{1,}", email)) {
             throw new BusinessException("Incorrect email!!");
         }
     }
 
     @Override
     public void validatePhone(String phone) throws BusinessException {
-        if (!Pattern.matches("0(50|67|97)\\d{7}", phone)) {
-            throw new BusinessException("Incorrect phone!! e.g(0501234455) 050 - phone code (can be 050 or 067 or 097)");
+
+        OperatorCodes[] operatorCodes = OperatorCodes.values();
+        String listOfCodes = "";
+        for (OperatorCodes s : operatorCodes) {
+            listOfCodes += s.getCode() + "|";
+        }
+        if (listOfCodes.length() > 0) {
+            listOfCodes = listOfCodes.substring(0, listOfCodes.length() - 1);
+        }
+
+        if (!Pattern.matches("(" + listOfCodes + ")\\d{7}", phone)) {
+            throw new BusinessException("Incorrect phone!! e.g(0501234455) 050 - phone code");
         }
     }
+}
+
+enum OperatorCodes {
+    VD1("050"), VD2("066"), VD3("095"), VD4("099"),
+    KS1("039"), KS2("067"), KS3("068"), KS4("096"), KS5("097"), KS6("098"),
+    LF1("063"), LF2("093"),
+    ALL("044");
+
+    private String code;
+
+    OperatorCodes(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
 }
