@@ -78,37 +78,15 @@ public class ClientMenu {
     }
 
     private void getProductsList() {
-        int numberOfProducts = 0;
-        for (Product product : productService.GetAllProducts()) {
-            System.out.println(product.toString());
-            numberOfProducts++;
-        }
-        System.out.println("Number of products: " + numberOfProducts);
+        CommonMethods.getProductsList(productService);
     }
 
     private void createOrder() throws IOException {
-        long clientId = readLong("Input id to find client: ");
-        ArrayList<String> productList = new ArrayList<String>();
-        boolean isRunning = true;
-        while (isRunning) {
-            String productName = InputString("Input product name to add to the order (Press 0 to skip): ");
-            if (productName.equals("0")) {
-                isRunning = false;
-                break;
-            } else {
-                productList.add(productName);
-            }
-        }
-        orderService.createOrder(clientId, productList);
+        CommonMethods.createOrder(orderService);
     }
 
     private void getOrdersList() {
-        int numberOfOrders = 0;
-        for (Order order : orderService.GetAllOrders()) {
-            System.out.println(order.toString());
-            numberOfOrders++;
-        }
-        System.out.println("Number of orders: " + numberOfOrders);
+        CommonMethods.getOrdersList(orderService);
     }
 
     private void showMenu() {
