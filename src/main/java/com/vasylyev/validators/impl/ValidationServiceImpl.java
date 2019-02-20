@@ -26,15 +26,15 @@ public class ValidationServiceImpl implements ValidationService {
     public void validatePhone(String phone) throws BusinessException {
 
         OperatorCodes[] operatorCodes = OperatorCodes.values();
-        String listOfCodes = "";
+        StringBuilder listOfCodes = new StringBuilder();
         for (OperatorCodes s : operatorCodes) {
-            listOfCodes += s.getCode() + "|";
+            listOfCodes.append(s.getCode() + "|");
         }
         if (listOfCodes.length() > 0) {
-            listOfCodes = listOfCodes.substring(0, listOfCodes.length() - 1);
+            listOfCodes.deleteCharAt(listOfCodes.length() - 1);
         }
 
-        if (!Pattern.matches("(" + listOfCodes + ")\\d{7}", phone)) {
+        if (!Pattern.matches("(" + listOfCodes.toString() + ")\\d{7}", phone)) {
             throw new BusinessException("Incorrect phone!! e.g(0501234455) 050 - phone code");
         }
     }
