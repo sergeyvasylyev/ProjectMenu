@@ -14,7 +14,7 @@ public class ClientServiceImpl implements ClientService {
     private ClientDao clientDao;
     private ValidationService validationService;
 
-    public ClientServiceImpl(ClientDao clientDao, ValidationService validationService)   {
+    public ClientServiceImpl(ClientDao clientDao, ValidationService validationService) {
         this.clientDao = clientDao;
         this.validationService = validationService;
     }
@@ -25,21 +25,23 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void createClient(String name, String surname, int age, String email, String phone){
+    public void createClient(String name, String surname, int age, String email, String phone) {
         try {
             validationService.validateAge(age);
             validationService.validatePhone(phone);
-            if (email != null) { validationService.validateEmail(email); }
+            if (email != null) {
+                validationService.validateEmail(email);
+            }
 
             Client tempClient = clientDao.findClient(phone);
             if (tempClient != null) {
                 System.out.println("Client exist! " + tempClient.toString());
                 return;
-            };
+            }
+            ;
             Client client = new Client(name, surname, age, email, phone);
             clientDao.saveClient(client);
-        }
-        catch(BusinessException ex) {
+        } catch (BusinessException ex) {
             ex.printStackTrace();
         }
     }
@@ -48,7 +50,7 @@ public class ClientServiceImpl implements ClientService {
     public void modifyClient(Long id, String newName) {
         Client tempClient = clientDao.findClient(id);
         System.out.println("Found client: " + tempClient);
-        if (tempClient != null){
+        if (tempClient != null) {
             clientDao.modifyClient(tempClient, newName);
         }
     }
@@ -57,12 +59,14 @@ public class ClientServiceImpl implements ClientService {
     public void deleteClient(Long id) {
         Client tempClient = clientDao.findClient(id);
         System.out.println("Found client: " + tempClient);
-        if (tempClient != null){
+        if (tempClient != null) {
             clientDao.deleteClient(tempClient);
         }
     }
 
-    public List<Client> GetAllClients(){
+    public List<Client> GetAllClients() {
         return clientDao.getClientsList();
-    };
+    }
+
+    ;
 }

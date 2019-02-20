@@ -14,19 +14,19 @@ public class CommonMethods {
         return br.readLine();
     }
 
-    public static int readInt(String messageToShow){
-        try{
+    public static int readInt(String messageToShow) {
+        try {
             return Integer.parseInt(InputString(messageToShow));
-        }catch(IOException | NumberFormatException nfe){
+        } catch (IOException | NumberFormatException nfe) {
             System.err.println("Invalid Format!");
             return readInt(messageToShow);
         }
     }
 
-    public static long readLong(String messageToShow){
-        try{
+    public static long readLong(String messageToShow) {
+        try {
             return Long.parseLong(InputString(messageToShow));
-        }catch(IOException | NumberFormatException nfe){
+        } catch (IOException | NumberFormatException nfe) {
             System.err.println("Invalid Format!");
             return readLong(messageToShow);
         }

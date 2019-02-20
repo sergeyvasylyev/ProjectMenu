@@ -34,7 +34,7 @@ public class AdminMenu {
 
     public void show() throws IOException {
         boolean isRunning = true;
-        while(isRunning) {
+        while (isRunning) {
             showMenu();
             switch (br.readLine()) {
                 case "1":
@@ -93,13 +93,13 @@ public class AdminMenu {
         clientService.createClient(name, surname, age, email, phone);
     }
 
-    private void modifyClient()  throws IOException {
+    private void modifyClient() throws IOException {
         long clientId = readLong("Input id to find client: ");
         String newName = InputString("Input new name: ");
         clientService.modifyClient(clientId, newName);
     }
 
-    private void getClientsList(){
+    private void getClientsList() {
         int numberOfClients = 0;
         for (Client client : clientService.GetAllClients()) {
             System.out.println(client.toString());
@@ -117,22 +117,22 @@ public class AdminMenu {
     private void createProduct() throws IOException {
         String name = InputString("Input name: ");
         BigDecimal price = new BigDecimal(0);
-        try{
+        try {
             price = new BigDecimal(InputString("Input price: "));
-        }catch(IOException | NumberFormatException nfe){
+        } catch (IOException | NumberFormatException nfe) {
             System.err.println("Invalid Format!");
             return;
         }
         productService.createProduct(name, price);
     }
 
-    private void modifyProduct()  throws IOException {
+    private void modifyProduct() throws IOException {
         String name = InputString("Input name to find product: ");
         String newName = InputString("Input new name: ");
         productService.modifyProduct(name, newName);
     }
 
-    private void getProductsList(){
+    private void getProductsList() {
         int numberOfProducts = 0;
         for (Product product : productService.GetAllProducts()) {
             System.out.println(product.toString());
@@ -163,7 +163,7 @@ public class AdminMenu {
         orderService.createOrder(clientId, productList);
     }
 
-    private void getOrdersList(){
+    private void getOrdersList() {
         int numberOfOrders = 0;
         for (Order order : orderService.GetAllOrders()) {
             System.out.println(order.toString());

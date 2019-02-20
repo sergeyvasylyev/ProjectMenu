@@ -17,23 +17,24 @@ public class ClientDaoImpl implements ClientDao {
     private Map<Long, Client> map = new HashMap<>();
     private static long generator = 0;
 
-    private ClientDaoImpl(){
+    private ClientDaoImpl() {
     }
 
     @Override
     public void saveClient(Client client) {
         client.setId(generator++);
-        System.out.println("Save client: "+client.getName());
+        System.out.println("Save client: " + client.getName());
         map.put(client.getId(), client);
     }
 
     @Override
-    public Client findClient(String phoneNumber){
-        for (int i = 0; i < map.size(); i++) {
-            Client foundClient = map.get(Long.valueOf(i));
-            if (phoneNumber.equals(foundClient.getPhone())){
+    public Client findClient(String phoneNumber) {
+        for (long i = 0; i < map.size(); i++) {
+            Client foundClient = map.get(i);
+            if (phoneNumber.equals(foundClient.getPhone())) {
                 return foundClient;
-            };
+            }
+            ;
         }
         return null;
     }
@@ -45,30 +46,31 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void modifyClient(Client client, String newName){
+    public void modifyClient(Client client, String newName) {
         client.setName(newName);
-        System.out.println("Save client: "+client.getName());
+        System.out.println("Save client: " + client.getName());
     }
 
     @Override
-    public List<Client> getClientsList(){
+    public List<Client> getClientsList() {
         return new ArrayList<>(map.values());
     }
 
     @Override
-    public void deleteClient(Client client){
-        for (int i = 0; i < map.size(); i++) {
-            Client foundClient = map.get(Long.valueOf(i));
-            if (client.equals(foundClient)){
-                System.out.println("Remove client: "+client.getName());
-                map.remove(Long.valueOf(i));
+    public void deleteClient(Client client) {
+        for (long i = 0; i < map.size(); i++) {
+            Client foundClient = map.get(i);
+            if (client.equals(foundClient)) {
+                System.out.println("Remove client: " + client.getName());
+                map.remove(i);
                 break;
-            };
+            }
+            ;
         }
     }
 
-    public static ClientDao getInstance(){
-        if(clientDao == null){
+    public static ClientDao getInstance() {
+        if (clientDao == null) {
             clientDao = new ClientDaoImpl();
         }
         return clientDao;

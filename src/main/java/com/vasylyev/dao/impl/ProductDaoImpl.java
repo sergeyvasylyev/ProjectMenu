@@ -15,54 +15,56 @@ public class ProductDaoImpl implements ProductDao {
     private Map<Long, Product> map = new HashMap<>();
     private static long generator = 0;
 
-    private ProductDaoImpl(){
+    private ProductDaoImpl() {
 
     }
 
     @Override
     public void saveProduct(Product product) {
         product.setId(generator++);
-        System.out.println("Save product: "+product.getName());
+        System.out.println("Save product: " + product.getName());
         map.put(product.getId(), product);
     }
 
     @Override
-    public Product findProduct(String productName){
-        for (int i = 0; i < map.size(); i++) {
-            Product foundProduct = map.get(Long.valueOf(i));
+    public Product findProduct(String productName) {
+        for (long i = 0; i < map.size(); i++) {
+            Product foundProduct = map.get(i);
             if (foundProduct != null) {
-                if (productName.equals(foundProduct.getName())){
+                if (productName.equals(foundProduct.getName())) {
                     return foundProduct;
                 }
-            };
+            }
+            ;
         }
         return null;
     }
 
     @Override
-    public void modifyProduct(Product product, String newName){
+    public void modifyProduct(Product product, String newName) {
         product.setName(newName);
-        System.out.println("Save product: "+product.getName());
+        System.out.println("Save product: " + product.getName());
     }
 
     @Override
-    public List<Product> getProductList(){
+    public List<Product> getProductList() {
         return new ArrayList<>(map.values());
     }
 
     @Override
-    public void deleteProduct(Product product){
-        for (int i = 0; i < map.size(); i++) {
-            Product foundProduct = map.get(Long.valueOf(i));
-            if (product.equals(foundProduct)){
-                System.out.println("Remove product: "+product.getName());
-                map.remove(Long.valueOf(i));
+    public void deleteProduct(Product product) {
+        for (long i = 0; i < map.size(); i++) {
+            Product foundProduct = map.get(i);
+            if (product.equals(foundProduct)) {
+                System.out.println("Remove product: " + product.getName());
+                map.remove(i);
                 break;
-            };
+            }
+            ;
         }
     }
 
-    public static ProductDao getInstance(){
+    public static ProductDao getInstance() {
         if (productDao == null) {
             productDao = new ProductDaoImpl();
         }

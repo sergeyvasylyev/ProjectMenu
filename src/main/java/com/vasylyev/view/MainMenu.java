@@ -23,7 +23,7 @@ public class MainMenu {
             System.out.println("2. Client");
             System.out.println("E. Exit");
 
-            switch (br.readLine()){
+            switch (br.readLine()) {
                 case "1":
                     adminMenu.show();
                     break;
