@@ -41,8 +41,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Client findClient(Long id) {
-        Client foundClient = map.get(id);
-        return foundClient;
+        return map.get(id);
     }
 
     @Override
