@@ -116,7 +116,7 @@ public class AdminMenu {
     //Products
     private void createProduct() throws IOException {
         String name = InputString("Input name: ");
-        BigDecimal price = new BigDecimal(0);
+        BigDecimal price;
         try {
             price = new BigDecimal(InputString("Input price: "));
         } catch (IOException | NumberFormatException nfe) {
