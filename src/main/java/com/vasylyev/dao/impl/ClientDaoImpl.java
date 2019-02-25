@@ -33,8 +33,7 @@ public class ClientDaoImpl implements ClientDao {
             Client foundClient = map.get(i);
             if (phoneNumber.equals(foundClient.getPhone())) {
                 return foundClient;
-            }
-            ;
+            };
         }
         return null;
     }
