@@ -17,6 +17,12 @@ public interface ProductDao {
     Product findProduct(String productName);
 
     /*
+     * find product by id
+     * return product
+     * */
+    Product findProduct(Long id);
+
+    /*
      * edit product by link. Set up new name in newName
      * */
     void modifyProduct(Product product, String newName);

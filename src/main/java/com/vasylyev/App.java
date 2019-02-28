@@ -3,10 +3,7 @@ package com.vasylyev;
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.dao.ProductDao;
-import com.vasylyev.dao.impl.ClientDBDao;
-import com.vasylyev.dao.impl.ClientDaoImpl;
-import com.vasylyev.dao.impl.OrderDaoImpl;
-import com.vasylyev.dao.impl.ProductDaoImpl;
+import com.vasylyev.dao.impl.*;
 import com.vasylyev.services.ClientService;
 import com.vasylyev.services.OrderService;
 import com.vasylyev.services.ProductService;
@@ -28,15 +25,19 @@ public class App {
     public static void main(String[] args) throws IOException {
 
         //ClientDao clientDao = ClientDaoImpl.getInstance();
+        //ProductDao productDao = ProductDaoImpl.getInstance();
+        //OrderDao orderDao = OrderDaoImpl.getInstance();
+
         ClientDao clientDao = new ClientDBDao();
-        ProductDao productDao = ProductDaoImpl.getInstance();
-        OrderDao orderDao = OrderDaoImpl.getInstance();
+        ProductDao productDao = new ProductDBDao();
+        OrderDao orderDao = new OrderDBDao();
 
         ValidationService validationService = new ValidationServiceImpl();
 
         ClientService clientService = new ClientServiceImpl(clientDao, validationService);
         ProductService productService = new ProductServiceImpl(productDao, validationService);
-        OrderService orderService = new OrderServiceImpl(orderDao, validationService);
+        //OrderService orderService = new OrderServiceImpl(orderDao, validationService);
+        OrderService orderService = new OrderServiceImpl(clientDao, productDao, orderDao, validationService);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         AdminMenu adminMenu = new AdminMenu(br, clientService, productService, orderService);

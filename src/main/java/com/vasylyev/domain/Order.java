@@ -17,6 +17,12 @@ public class Order {
         this.products = products;
     }
 
+    public Order(long id, Client client, List<Product> products) {
+        this.id = id;
+        this.client = client;
+        this.products = products;
+    }
+
     public long getId() {
         return id;
     }
@@ -45,7 +51,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", client=" + client +
+                ", client=" + client.toStringShort() +
                 ", products=" + products +
                 '}';
     }

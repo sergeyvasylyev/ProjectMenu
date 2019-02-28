@@ -41,7 +41,7 @@ public class CommonMethods {
     public static void getProductsList(ProductService productService) {
         int numberOfProducts = 0;
         for (Product product : productService.GetAllProducts()) {
-            System.out.println(product.toString());
+            System.out.println(product.toStringLong());
             numberOfProducts++;
         }
         System.out.println("Number of products: " + numberOfProducts);

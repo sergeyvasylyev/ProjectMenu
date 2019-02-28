@@ -40,6 +40,10 @@ public class ProductDaoImpl implements ProductDao {
         return null;
     }
 
+    public Product findProduct(Long id) {
+        return map.get(id);
+    }
+
     @Override
     public void modifyProduct(Product product, String newName) {
         product.setName(newName);
