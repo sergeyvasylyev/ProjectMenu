@@ -3,6 +3,7 @@ package com.vasylyev;
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.dao.ProductDao;
+import com.vasylyev.dao.impl.ClientDBDao;
 import com.vasylyev.dao.impl.ClientDaoImpl;
 import com.vasylyev.dao.impl.OrderDaoImpl;
 import com.vasylyev.dao.impl.ProductDaoImpl;
@@ -26,7 +27,8 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        ClientDao clientDao = ClientDaoImpl.getInstance();
+        //ClientDao clientDao = ClientDaoImpl.getInstance();
+        ClientDao clientDao = new ClientDBDao();
         ProductDao productDao = ProductDaoImpl.getInstance();
         OrderDao orderDao = OrderDaoImpl.getInstance();
 
