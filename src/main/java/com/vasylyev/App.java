@@ -24,10 +24,6 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        //ClientDao clientDao = ClientDaoImpl.getInstance();
-        //ProductDao productDao = ProductDaoImpl.getInstance();
-        //OrderDao orderDao = OrderDaoImpl.getInstance();
-
         ClientDao clientDao = new ClientDBDao();
         ProductDao productDao = new ProductDBDao();
         OrderDao orderDao = new OrderDBDao();
@@ -36,7 +32,6 @@ public class App {
 
         ClientService clientService = new ClientServiceImpl(clientDao, validationService);
         ProductService productService = new ProductServiceImpl(productDao, validationService);
-        //OrderService orderService = new OrderServiceImpl(orderDao, validationService);
         OrderService orderService = new OrderServiceImpl(clientDao, productDao, orderDao, validationService);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
