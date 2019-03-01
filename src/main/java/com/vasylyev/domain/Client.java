@@ -15,7 +15,22 @@ public class Client {
         this.phone = phone;
     }
 
-    public Client(String name, String surname, int age, String email, String phone) {
+    public Client(long id, String name, String phone) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public Client(String name, String surname, int age, String phone, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Client(long id, String name, String surname, int age, String phone, String email) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -80,6 +95,13 @@ public class Client {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                '}';
+    }
+
+    public String toStringShort() {
+        return name + "{" +
+                "id:" + id +
+                ", ph:" + phone +
                 '}';
     }
 

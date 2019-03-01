@@ -17,14 +17,26 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
 
-    private ClientDao clientDao = ClientDaoImpl.getInstance();
-    private ProductDao productDao = ProductDaoImpl.getInstance();
-    private OrderDao orderDao = OrderDaoImpl.getInstance();
+    //private ClientDao clientDao = ClientDaoImpl.getInstance();
+    //private ProductDao productDao = ProductDaoImpl.getInstance();
+    //private OrderDao orderDao = OrderDaoImpl.getInstance();
+
+    private ClientDao clientDao;
+    private ProductDao productDao;
+    private OrderDao orderDao;
+
     private ValidationService validationService;
 
 
     public OrderServiceImpl(OrderDao orderDao, ValidationService validationService) {
         this.orderDao = orderDao;
+        this.validationService = validationService;
+    }
+
+    public OrderServiceImpl(ClientDao clientDao, ProductDao productDao, OrderDao orderDao, ValidationService validationService) {
+        this.orderDao = orderDao;
+        this.clientDao = clientDao;
+        this.productDao = productDao;
         this.validationService = validationService;
     }
 

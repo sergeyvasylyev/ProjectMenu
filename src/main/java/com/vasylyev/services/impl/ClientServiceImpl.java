@@ -21,11 +21,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void createClient(String name, String surname, String phone) {
-        this.createClient(name, surname, 0, null, phone);
+        this.createClient(name, surname, 0, phone, null);
     }
 
     @Override
-    public void createClient(String name, String surname, int age, String email, String phone) {
+    public void createClient(String name, String surname, int age, String phone, String email) {
         try {
             validationService.validateAge(age);
             validationService.validatePhone(phone);
@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
                 return;
             }
             ;
-            Client client = new Client(name, surname, age, email, phone);
+            Client client = new Client(name, surname, age, phone, email);
             clientDao.saveClient(client);
         } catch (BusinessException ex) {
             ex.printStackTrace();
