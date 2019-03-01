@@ -150,7 +150,7 @@ public class AdminMenu {
         CommonMethods.getOrdersList(orderService);
     }
 
-    private void deleteOrder() throws IOException {
+    private void deleteOrder() {
         long orderId = readLong("Input id to find order: ");
         orderService.deleteOrder(orderId);
     }
