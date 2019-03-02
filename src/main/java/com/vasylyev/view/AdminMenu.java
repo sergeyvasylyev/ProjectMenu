@@ -90,7 +90,7 @@ public class AdminMenu {
         int age = readInt("Input age: ");
         String phone = InputString("Input phone: ");
         String email = InputString("Input email: ");
-        clientService.createClient(name, surname, age, email, phone);
+        clientService.createClient(name, surname, age, phone, email);
     }
 
     private void modifyClient() throws IOException {
