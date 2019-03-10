@@ -1,5 +1,9 @@
 package com.vasylyev.dao.impl;
 
+import com.vasylyev.domain.Product;
+
+import java.sql.*;
+
 public class CommonDBDao {
 
     //public static final String DB_URL = "jdbc:h2:./LuxoftShop";
@@ -14,7 +18,7 @@ public class CommonDBDao {
     public static final String ClientSQLFindId = "select * from client where id = ?";
     public static final String ClientSQLFindPhone = "select * from client where phone = ?";
     public static final String ClientSQLUpdate = "update client set name = ? where id = ?";
-    public static final String ClientSQLGetList = "select * from client order by 1";
+    public static final String ClientSQLGetList = "select id, name, surname, age, phone, email from client order by 1";
     public static final String ClientSQLDelete = "delete from client where id = ?";
 
     //product
@@ -47,6 +51,5 @@ public class CommonDBDao {
             "order by od.id";
     public static final String OrderSQLDeleteOD = "delete from OrderDocument where id = ?;";
     public static final String OrderSQLDeleteOP = "delete from OrderProduct where orderId = ?";
-
 
 }

@@ -25,7 +25,7 @@ public interface ProductService {
     /*
      * find Product with name
      * */
-    void findProduct(String name);
+    Product findProduct(String name);
 
     /*
      * get Product list

@@ -20,7 +20,7 @@ public interface OrderService {
     /*
      * find Order with name
      * */
-    void findOrder(Long id);
+    Order findOrder(Long id);
 
     /*
      * get Order list

@@ -1,23 +1,18 @@
 package com.vasylyev.dao.impl;
 
-import com.vasylyev.dao.ClientDao;
 import com.vasylyev.dao.OrderDao;
-import com.vasylyev.dao.ProductDao;
 import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.vasylyev.dao.impl.CommonDBDao.*;
+import static com.vasylyev.dao.impl.ProductDBDao.getProductRomRS;
 
 public class OrderDBDao implements OrderDao {
-
-    //private ProductDao productDao;
-    //private ClientDao clientDao;
 
     public OrderDBDao() {
         try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
@@ -71,15 +66,11 @@ public class OrderDBDao implements OrderDao {
                 while (resultSet.next()) {
                     if (orderId == -1) {
                         orderId = resultSet.getLong("odId");
-                        ;
                         clientId = resultSet.getLong("cId");
                         clientName = resultSet.getString("cName");
                         clientPhone = resultSet.getString("cPhone");
                     }
-                    long productId = resultSet.getLong("pId");
-                    String productName = resultSet.getString("pName");
-                    BigDecimal productPrice = resultSet.getBigDecimal("pPrice");
-                    productList.add(new Product(productId, productName, productPrice));
+                    productList.add(getProductRomRS(resultSet));
                 }
                 if (orderId != -1) {
                     return new Order(orderId, new Client(clientId, clientName, clientPhone), productList);
@@ -111,10 +102,8 @@ public class OrderDBDao implements OrderDao {
                         result.add(new Order(orderId, new Client(clientId, clientName, clientPhone), productList));
                         productList = new ArrayList<>();
                     }
-                    long productId = resultSet.getLong("pId");
-                    String productName = resultSet.getString("pName");
-                    BigDecimal productPrice = resultSet.getBigDecimal("pPrice");
-                    productList.add(new Product(productId, productName, productPrice));
+                    productList.add(getProductRomRS(resultSet));
+
                     orderId = nextOrderId;
 
                     clientId = resultSet.getLong("cId");
@@ -148,4 +137,5 @@ public class OrderDBDao implements OrderDao {
             System.out.println("Error with SQL Connection! " + e.getMessage());
         }
     }
+
 }

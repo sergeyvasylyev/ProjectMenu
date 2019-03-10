@@ -101,7 +101,7 @@ public class AdminMenu {
 
     private void getClientsList() {
         int numberOfClients = 0;
-        for (Client client : clientService.GetAllClients()) {
+        for (Client client : clientService.getAllClients()) {
             System.out.println(client.toString());
             numberOfClients++;
         }

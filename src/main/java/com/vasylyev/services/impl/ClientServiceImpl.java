@@ -1,7 +1,6 @@
 package com.vasylyev.services.impl;
 
 import com.vasylyev.dao.ClientDao;
-import com.vasylyev.dao.impl.ClientDaoImpl;
 import com.vasylyev.domain.Client;
 import com.vasylyev.exceptions.BusinessException;
 import com.vasylyev.services.ClientService;
@@ -38,8 +37,13 @@ public class ClientServiceImpl implements ClientService {
                 System.out.println("Client exist! " + tempClient.toString());
                 return;
             }
-            ;
-            Client client = new Client(name, surname, age, phone, email);
+
+            Client client = new Client.Builder(name, phone)
+                    .surname(surname)
+                    .age(age)
+                    .email(email)
+                    .buildClient();
+
             clientDao.saveClient(client);
         } catch (BusinessException ex) {
             ex.printStackTrace();
@@ -48,25 +52,39 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void modifyClient(Long id, String newName) {
-        Client tempClient = clientDao.findClient(id);
-        System.out.println("Found client: " + tempClient);
+        Client tempClient = findClient(id);
         if (tempClient != null) {
             clientDao.modifyClient(tempClient, newName);
         }
     }
 
     @Override
-    public void deleteClient(Long id) {
+    public Client findClient(Long id) {
         Client tempClient = clientDao.findClient(id);
-        System.out.println("Found client: " + tempClient);
+        showClient(id, tempClient);
+        return tempClient;
+    }
+
+    @Override
+    public void deleteClient(Long id) {
+        Client tempClient = findClient(id);
         if (tempClient != null) {
             clientDao.deleteClient(tempClient);
         }
     }
 
-    public List<Client> GetAllClients() {
+    public List<Client> getAllClients() {
         return clientDao.getClientsList();
     }
 
-    ;
+    static void showClient(Long id, Client client){
+        String clientResult;
+        if (client != null) {
+            clientResult = "Found client: " + client;
+        }
+        else {
+            clientResult = "Client not found: " + id;
+        }
+        System.out.println(clientResult);
+    }
 }
