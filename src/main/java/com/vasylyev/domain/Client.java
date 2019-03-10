@@ -1,13 +1,15 @@
 package com.vasylyev.domain;
 
+import java.util.Objects;
+
 public class Client {
 
     private long id;
     private String name;
     private String surname;
     private int age;
-    private String email;
     private String phone;
+    private String email;
 
     public Client(String name, String surname, String phone) {
         this.name = name;
@@ -105,4 +107,84 @@ public class Client {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return id == client.id &&
+                age == client.age &&
+                Objects.equals(name, client.name) &&
+                Objects.equals(surname, client.surname) &&
+                Objects.equals(email, client.email) &&
+                Objects.equals(phone, client.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, age, email, phone);
+    }
+
+    public static class Builder{
+        private long id;
+        private String name;
+        private String phone;
+        private String surname;
+        private int age;
+        private String email;
+
+        public Builder(long id, String name, String phone) {
+            this.id = id;
+            this.name = name;
+            this.phone = phone;
+        }
+
+        public Builder(String name, String phone) {
+            this.name = name;
+            this.phone = phone;
+        }
+
+        public Builder id(long vId){
+            id = vId;
+            return this;
+        }
+
+        public Builder name(String vName){
+            name = vName;
+            return this;
+        }
+
+        public Builder phone(String vPhone){
+            phone = vPhone;
+            return this;
+        }
+
+        public Builder surname(String vSurname){
+            surname = vSurname;
+            return this;
+        }
+
+        public Builder age(int vAge){
+            age = vAge;
+            return this;
+        }
+
+        public Builder email(String vEmail){
+            email = vEmail;
+            return this;
+        }
+
+        public Client buildClient(){
+            return new Client(this);
+        }
+    }
+
+    private Client(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        surname = builder.surname;
+        age = builder.age;
+        email = builder.email;
+        phone = builder.phone;
+    }
 }

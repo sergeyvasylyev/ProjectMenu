@@ -3,56 +3,42 @@ package com.vasylyev.services.impl;
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.dao.ProductDao;
-import com.vasylyev.dao.impl.ClientDaoImpl;
-import com.vasylyev.dao.impl.OrderDaoImpl;
-import com.vasylyev.dao.impl.ProductDaoImpl;
 import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.OrderService;
-import com.vasylyev.validators.ValidationService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderServiceImpl implements OrderService {
+import static com.vasylyev.services.impl.ClientServiceImpl.showClient;
+import static com.vasylyev.services.impl.ProductServiceImpl.showProduct;
 
-    //private ClientDao clientDao = ClientDaoImpl.getInstance();
-    //private ProductDao productDao = ProductDaoImpl.getInstance();
-    //private OrderDao orderDao = OrderDaoImpl.getInstance();
+public class OrderServiceImpl implements OrderService {
 
     private ClientDao clientDao;
     private ProductDao productDao;
     private OrderDao orderDao;
 
-    private ValidationService validationService;
-
-
-    public OrderServiceImpl(OrderDao orderDao, ValidationService validationService) {
-        this.orderDao = orderDao;
-        this.validationService = validationService;
-    }
-
-    public OrderServiceImpl(ClientDao clientDao, ProductDao productDao, OrderDao orderDao, ValidationService validationService) {
+    public OrderServiceImpl(ClientDao clientDao, ProductDao productDao, OrderDao orderDao) {
         this.orderDao = orderDao;
         this.clientDao = clientDao;
         this.productDao = productDao;
-        this.validationService = validationService;
     }
 
     @Override
     public void createOrder(Long id, List<String> productNameList) {
         Client client = clientDao.findClient(id);
-        System.out.println("Found client: " + client);
+        showClient(id, client);
         if (client != null) {
             ArrayList<Product> productListOrder = new ArrayList<Product>();
             if (productNameList != null) {
-                for (int i = 0; i < productNameList.size(); i++) {
-                    Product tempProduct = productDao.findProduct(productNameList.get(i));
+                for (String prName : productNameList) {
+                    Product tempProduct = productDao.findProduct(prName);
+                    showProduct(prName, tempProduct);
                     if (tempProduct != null) {
                         productListOrder.add(tempProduct);
                     }
-                    System.out.println("Found product to create order: " + tempProduct);
                 }
             }
             Order order = new Order(client, productListOrder);
@@ -61,15 +47,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void findOrder(Long id) {
+    public Order findOrder(Long id) {
         Order tempOrder = orderDao.findOrder(id);
-        System.out.println("Found order: " + tempOrder);
+        showOrder(id, tempOrder);
+        return tempOrder;
     }
 
     @Override
     public void deleteOrder(Long id) {
-        Order tempOrder = orderDao.findOrder(id);
-        System.out.println("Found order: " + tempOrder);
+        Order tempOrder = findOrder(id);
         if (tempOrder != null) {
             orderDao.deleteOrder(tempOrder);
         }
@@ -80,6 +66,14 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getOrderList();
     }
 
-    ;
-
+    private void showOrder(Long id, Order order){
+        String orderResult;
+        if (order != null) {
+            orderResult = "Found order: " + order;
+        }
+        else {
+            orderResult = "Order not found: " + id;
+        }
+        System.out.println(orderResult);
+    }
 }

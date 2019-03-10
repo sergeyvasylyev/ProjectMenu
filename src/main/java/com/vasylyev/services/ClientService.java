@@ -18,6 +18,8 @@ public interface ClientService {
      * */
     void modifyClient(Long id, String newName);
 
+    Client findClient(Long id);
+
     /*
      * delete client with name
      * */
@@ -26,5 +28,5 @@ public interface ClientService {
     /*
      * get clients list
      * */
-    List<Client> GetAllClients();
+    List<Client> getAllClients();
 }

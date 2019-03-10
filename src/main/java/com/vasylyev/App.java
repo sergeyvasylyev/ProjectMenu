@@ -31,9 +31,9 @@ public class App {
         ValidationService validationService = new ValidationServiceImpl();
 
         ClientService clientService = new ClientServiceImpl(clientDao, validationService);
-        ProductService productService = new ProductServiceImpl(productDao, validationService);
-        OrderService orderService = new OrderServiceImpl(clientDao, productDao, orderDao, validationService);
-
+        ProductService productService = new ProductServiceImpl(productDao);
+        OrderService orderService = new OrderServiceImpl(clientDao, productDao, orderDao);
+      
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         AdminMenu adminMenu = new AdminMenu(br, clientService, productService, orderService);
         ClientMenu clientMenu = new ClientMenu(br, clientService, productService, orderService);

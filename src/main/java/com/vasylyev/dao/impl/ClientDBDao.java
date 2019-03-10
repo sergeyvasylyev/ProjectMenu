@@ -25,80 +25,27 @@ public class ClientDBDao implements ClientDao {
 
     @Override
     public void saveClient(Client client) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(ClientSQLInsert);
-        ) {
-            statement.setString(1, client.getName());
-            statement.setString(2, client.getSurname());
-            statement.setInt(3, client.getAge());
-            statement.setString(4, client.getPhone());
-            statement.setString(5, client.getEmail());
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("Error with SQL Connection! " + e.getMessage());
-        }
+        setStatement(ClientSQLInsert, client, "");
     }
 
     @Override
     public Client findClient(Long id) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(ClientSQLFindId);) {
-            statement.setLong(1, id);
-            try (ResultSet resultSet = statement.executeQuery();) {
-                if (resultSet.next()) {
-                    String name = resultSet.getString(2);
-                    String surname = resultSet.getString(3);
-                    int age = resultSet.getInt(4);
-                    String phone = resultSet.getString(5);
-                    String email = resultSet.getString(6);
-
-                    return new Client(id, name, surname, age, phone, email);
-                }
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error with SQL Connection! " + e.getMessage());
-        }
-
-        return null;
+        return findClientCommon(ClientSQLFindId, id);
     }
 
     @Override
     public Client findClient(String phoneNumber) {
-
-        try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(ClientSQLFindPhone);) {
-            statement.setString(1, phoneNumber);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                long currentId = resultSet.getLong(1);
-                String name = resultSet.getString(2);
-                String surname = resultSet.getString(3);
-                int age = resultSet.getInt(4);
-                String phone = resultSet.getString(5);
-                String email = resultSet.getString(6);
-                resultSet.close();
-
-                return new Client(currentId, name, surname, age, phone, email);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error with SQL Connection! " + e.getMessage());
-        }
-        return null;
+        return findClientCommon(ClientSQLFindPhone, phoneNumber);
     }
 
     @Override
     public void modifyClient(Client client, String newName) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(ClientSQLUpdate);) {
-            statement.setString(1, newName);
-            statement.setLong(2, client.getId());
-            statement.execute();
+        setStatement(ClientSQLUpdate, client, newName);
+    }
 
-        } catch (SQLException e) {
-            System.out.println("Error with SQL Connection! " + e.getMessage());
-        }
+    @Override
+    public void deleteClient(Client client) {
+        setStatement(ClientSQLDelete, client, "");
     }
 
     @Override
@@ -108,34 +55,75 @@ public class ClientDBDao implements ClientDao {
             try (ResultSet resultSet = statement.executeQuery();) {
                 List<Client> result = new ArrayList<>();
                 while (resultSet.next()) {
-                    long currentId = resultSet.getLong(1);
-                    String name = resultSet.getString(2);
-                    String surname = resultSet.getString(3);
-                    int age = resultSet.getInt(4);
-                    String phone = resultSet.getString(5);
-                    String email = resultSet.getString(6);
-
-                    result.add(new Client(currentId, name, surname, age, phone, email));
+                    result.add(getClientRomRS(resultSet));
                 }
                 return result;
             }
-
         } catch (SQLException e) {
             System.out.println("Error with SQL Connection! " + e.getMessage());
         }
-
         return null;
     }
 
-    @Override
-    public void deleteClient(Client client) {
+    private void setStatement(String sqlSt, Client client, String newName){
         try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(ClientSQLDelete);) {
-            statement.setLong(1, client.getId());
+             PreparedStatement statement = connection.prepareStatement(sqlSt);) {
+            switch (sqlSt) {
+                case ClientSQLUpdate:
+                    statement.setString(1, newName);
+                    statement.setLong(2, client.getId());
+                    break;
+                case ClientSQLDelete:
+                    statement.setLong(1, client.getId());
+                    break;
+                case ClientSQLInsert:
+                    statement.setString(1, client.getName());
+                    statement.setString(2, client.getSurname());
+                    statement.setInt(3, client.getAge());
+                    statement.setString(4, client.getPhone());
+                    statement.setString(5, client.getEmail());
+                    break;
+            }
             statement.execute();
-
         } catch (SQLException e) {
             System.out.println("Error with SQL Connection! " + e.getMessage());
         }
+    }
+
+    private <T> Client findClientCommon(String sqlSt, T param){
+        try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(sqlSt);) {
+            switch (sqlSt){
+                case ClientSQLFindPhone:
+                    statement.setString(1, (String)param);
+                    break;
+                case ClientSQLFindId:
+                    statement.setLong(1, (Long) param);
+                    break;
+            }
+            try (ResultSet resultSet = statement.executeQuery();) {
+                if (resultSet.next()) {
+                    return getClientRomRS(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error with SQL Connection! " + e.getMessage());
+        }
+        return null;
+    }
+
+    private Client getClientRomRS(ResultSet resultSet) throws SQLException{
+        long currentId = resultSet.getLong(1);
+        String name = resultSet.getString(2);
+        String surname = resultSet.getString(3);
+        int age = resultSet.getInt(4);
+        String phone = resultSet.getString(5);
+        String email = resultSet.getString(6);
+
+        return new Client.Builder(currentId, name, phone)
+                .surname(surname)
+                .age(age)
+                .email(email)
+                .buildClient();
     }
 }
