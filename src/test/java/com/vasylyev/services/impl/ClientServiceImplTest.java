@@ -63,7 +63,11 @@ public class ClientServiceImplTest {
         String phone = "0501234455";
         String email = "test@test.com";
 
-        Client expectedClient = new Client(name, surname, age, phone, email);
+        Client expectedClient = new Client.Builder(name, phone)
+                .surname(surname)
+                .age(age)
+                .email(email)
+                .buildClient();
         Mockito.when(clientDao.findClient(id)).thenReturn(expectedClient);
 
         //WHEN
