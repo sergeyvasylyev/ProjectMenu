@@ -4,6 +4,7 @@ import com.vasylyev.dao.ClientDao;
 import com.vasylyev.domain.Client;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -45,6 +46,7 @@ public class ClientDaoTest {
     }
 
     @Test
+    @Ignore
     public void createClientDAOTest() throws SQLException {
 
         long id = 1;
