@@ -109,7 +109,7 @@ public class ProductDBDao implements ProductDao {
         return null;
     }
 
-    static Product getProductRomRS(ResultSet resultSet) throws SQLException{
+    private Product getProductRomRS(ResultSet resultSet) throws SQLException{
         long currentId = resultSet.getLong(1);
         String name = resultSet.getString(2);
         BigDecimal price = resultSet.getBigDecimal(3);

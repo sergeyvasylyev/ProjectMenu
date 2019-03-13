@@ -5,12 +5,13 @@ import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.vasylyev.dao.impl.CommonDBDao.*;
-import static com.vasylyev.dao.impl.ProductDBDao.getProductRomRS;
+
 
 public class OrderDBDao implements OrderDao {
 
@@ -138,4 +139,10 @@ public class OrderDBDao implements OrderDao {
         }
     }
 
+    private Product getProductRomRS(ResultSet resultSet) throws SQLException{
+        long currentId = resultSet.getLong("pId");
+        String name = resultSet.getString("pName");
+        BigDecimal price = resultSet.getBigDecimal("pPrice");
+        return new Product(currentId, name, price);
+    }
 }
