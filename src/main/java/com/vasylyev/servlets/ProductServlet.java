@@ -1,21 +1,22 @@
 package com.vasylyev.servlets;
 
-import com.vasylyev.domain.Client;
-import com.vasylyev.services.ClientService;
+import com.vasylyev.domain.Product;
+import com.vasylyev.services.ProductService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.List;
 
-public class ClientServlet extends HttpServlet {
+public class ProductServlet extends HttpServlet {
 
-    private ClientService clientService;
+    private ProductService productService;
 
-    public ClientServlet(ClientService clientService) {
-        this.clientService = clientService;
+    public ProductServlet(ProductService productService) {
+        this.productService = productService;
     }
 
     @Override
@@ -27,16 +28,16 @@ public class ClientServlet extends HttpServlet {
         }
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-        List<Client> clientList = clientService.getAllClients();
-        if (clientList == null ){
-            writer.println("<h1>Empty client list!</h1>");
+        List<Product> productList = productService.GetAllProducts();
+        if (productList == null ){
+            writer.println("<h1>Empty product list!</h1>");
         }else {
-            writer.println("<h4>Client list</h4>");
-            for (Client client : clientList) {
-                writer.println("<h5>" + client.toString() + "</h5>");
+            writer.println("<h4>Product list</h4>");
+            for (Product product : productList) {
+                writer.println("<h5>" + product.toString() + "</h5>");
             }
         }
-        writer.println("<a href=\"clientMenu.html\"> Client menu</a><br>");
+        writer.println("<a href=\"productMenu.html\"> Product menu</a><br>");
     }
 
     @Override
@@ -47,27 +48,24 @@ public class ClientServlet extends HttpServlet {
             return;
         }
         String name = req.getParameter("name");
-        String surname = req.getParameter("surname");
-        String age = req.getParameter("age");
-        String phone = req.getParameter("phone");
-        String email = req.getParameter("email");
-        clientService.createClient(name, surname, Integer.parseInt(age), phone, email);
+        String price = req.getParameter("price");
+        productService.createProduct(name, new BigDecimal(price));
         doGet(req, resp);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String id = req.getParameter("id");
-        clientService.deleteClient(Long.parseLong(id));
+        String name = req.getParameter("name");
+        productService.deleteProduct(name);
         PrintWriter writer = resp.getWriter();
-        writer.println("Client "+"\""+id+"\" deleted!");
+        writer.println("Product "+"\""+name+"\" deleted!");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String id = req.getParameter("id");
         String name = req.getParameter("name");
-        clientService.modifyClient(Long.parseLong(id), name);
+        String newName = req.getParameter("newName");
+        productService.modifyProduct(name, newName);
         doGet(req, resp);
     }
 }
