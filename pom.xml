@@ -33,43 +33,35 @@
         </plugins>
     </build>
 
+    <properties>
+        <junit.version>4.12</junit.version>
+        <org.mockito.version>2.25.0</org.mockito.version>
+        <com.h2database.version>1.4.197</com.h2database.version>
+        <javax.servlet.version>4.0.1</javax.servlet.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.25.0</version>
+            <version>${org.mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
+            <version>${com.h2database.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
+            <version>${javax.servlet.version}</version>
         </dependency>
-
-        <!--
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-testng</artifactId>
-            <version>1.5.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
-            <version>1.5.6</version>
-        </dependency>
--->
 
     </dependencies>
 

@@ -11,35 +11,6 @@ public class Client {
     private String phone;
     private String email;
 
-    public Client(String name, String surname, String phone) {
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
-    }
-
-    public Client(long id, String name, String phone) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public Client(String name, String surname, int age, String phone, String email) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.email = email;
-        this.phone = phone;
-    }
-
-    public Client(long id, String name, String surname, int age, String phone, String email) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.email = email;
-        this.phone = phone;
-    }
-
     public long getId() {
         return id;
     }
@@ -174,7 +145,7 @@ public class Client {
             return this;
         }
 
-        public Client buildClient(){
+        public Client build(){
             return new Client(this);
         }
     }

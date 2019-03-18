@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
                     .surname(surname)
                     .age(age)
                     .email(email)
-                    .buildClient();
+                    .build();
 
             clientDao.saveClient(client);
         } catch (BusinessException ex) {

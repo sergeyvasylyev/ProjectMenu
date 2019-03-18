@@ -60,7 +60,7 @@ public class ClientDaoTest {
                 .surname(surname)
                 .age(age)
                 .email(email)
-                .buildClient();
+                .build();
 
         //PowerMockito.mockStatic(DriverManager.class);
         //when(DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(connection);

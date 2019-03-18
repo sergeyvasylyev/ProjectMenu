@@ -125,6 +125,6 @@ public class ClientDBDao implements ClientDao {
                 .surname(surname)
                 .age(age)
                 .email(email)
-                .buildClient();
+                .build();
     }
 }

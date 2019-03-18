@@ -1,6 +1,7 @@
 package com.vasylyev.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
 
@@ -57,5 +58,20 @@ public class Product {
                 "'" + name + '\'' +
                 " (" + price + ")"+
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(price, product.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price);
     }
 }
