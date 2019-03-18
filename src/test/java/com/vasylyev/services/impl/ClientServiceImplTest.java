@@ -1,27 +1,19 @@
 package com.vasylyev.services.impl;
 
 import com.vasylyev.dao.ClientDao;
-import com.vasylyev.dao.impl.ClientDBDao;
 import com.vasylyev.domain.Client;
 import com.vasylyev.services.ClientService;
 import com.vasylyev.validators.ValidationService;
-import com.vasylyev.validators.impl.ValidationServiceImpl;
 import org.junit.*;
-import org.junit.internal.builders.JUnit4Builder;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-//@RunWith(JUnit4.class)
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceImplTest {
-
-    //private ClientDao clientDao = Mockito.mock(ClientDao.class);
-    //private ValidationService validationService = Mockito.mock(ValidationService.class);
 
     @Mock
     private ClientDao clientDao;
@@ -30,15 +22,13 @@ public class ClientServiceImplTest {
 
     private ClientService clientService;
 
-
     @Before
     public void init(){
         clientService = new ClientServiceImpl(clientDao, validationService);
     }
 
     @Test
-    @Ignore
-    public void createClientWithFullParamenertsTest() {
+    public void createClientWithFullParametersTest() {
         //GIVEN
         String name = "test";
         String surname = "test";
@@ -50,7 +40,12 @@ public class ClientServiceImplTest {
         clientService.createClient(name, surname, age, phone, email);
 
         //THEN
-
+        verify(clientDao,times(1))
+                .saveClient(new Client.Builder(name, phone)
+                        .surname(surname)
+                        .age(age)
+                        .email(email)
+                        .build());
     }
 
     @Test
@@ -67,8 +62,8 @@ public class ClientServiceImplTest {
                 .surname(surname)
                 .age(age)
                 .email(email)
-                .buildClient();
-        Mockito.when(clientDao.findClient(id)).thenReturn(expectedClient);
+                .build();
+        when(clientDao.findClient(id)).thenReturn(expectedClient);
 
         //WHEN
         Client client = clientService.findClient(id);
@@ -83,16 +78,15 @@ public class ClientServiceImplTest {
     public void findClientWithNegateIdTest() {
         //GIVEN
         long id = -1;
-        Mockito.when(clientDao.findClient(id)).thenReturn(null);
+        when(clientDao.findClient(id)).thenReturn(null);
 
         //WHEN
         Client client = clientService.findClient(id);
 
         //THEN
-        Mockito.verify(clientDao).findClient(id);
+        verify(clientDao).findClient(id);
         Mockito.verifyNoMoreInteractions(clientDao);
         Assert.assertNull( client);
-
     }
 
     @After

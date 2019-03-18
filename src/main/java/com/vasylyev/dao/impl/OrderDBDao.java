@@ -74,7 +74,10 @@ public class OrderDBDao implements OrderDao {
                     productList.add(getProductRomRS(resultSet));
                 }
                 if (orderId != -1) {
-                    return new Order(orderId, new Client(clientId, clientName, clientPhone), productList);
+                    return new Order(orderId
+                            , new Client.Builder(clientId, clientName, clientPhone).build()
+                            , productList);
+
                 }
             }
         } catch (SQLException e) {
@@ -100,7 +103,9 @@ public class OrderDBDao implements OrderDao {
                     nextOrderId = resultSet.getLong("odId");
                     if (orderId != nextOrderId && orderId != -1)//next order
                     {
-                        result.add(new Order(orderId, new Client(clientId, clientName, clientPhone), productList));
+                        result.add(new Order(orderId
+                                , new Client.Builder(clientId, clientName, clientPhone).build()
+                                , productList));
                         productList = new ArrayList<>();
                     }
                     productList.add(getProductRomRS(resultSet));
@@ -112,7 +117,9 @@ public class OrderDBDao implements OrderDao {
                     clientPhone = resultSet.getString("cPhone");
                 }
                 if (clientId != -1) {
-                    result.add(new Order(orderId, new Client(clientId, clientName, clientPhone), productList));
+                    result.add(new Order(orderId
+                            , new Client.Builder(clientId, clientName, clientPhone).build()
+                            , productList));
                 }
                 return result;
             }

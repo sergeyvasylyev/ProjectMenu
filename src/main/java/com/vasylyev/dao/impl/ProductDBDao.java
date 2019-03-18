@@ -44,7 +44,7 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public void deleteProduct(Product product) {
-        setStatement(ProductSQLUpdate, product, "");
+        setStatement(ProductSQLDelete, product, "");
     }
 
     @Override

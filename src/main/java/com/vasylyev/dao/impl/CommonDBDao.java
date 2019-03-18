@@ -28,7 +28,7 @@ public class CommonDBDao {
     public static final String ProductSQLFindId = "select * from product where id = ?";
     public static final String ProductSQLUpdate = "update product set name = ? where id = ?";
     public static final String ProductQLGetList = "select * from product order by id";
-    public static final String ProductSQLDelete = "delete from product where id = ?";
+    public static final String ProductSQLDelete = "delete from product where name = ?";
 
     //order
     public static final String OrderSQLConstructor = "CREATE TABLE IF NOT EXISTS OrderDocument (id int AUTO_INCREMENT, ClientId int); " +

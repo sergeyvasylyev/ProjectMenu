@@ -13,6 +13,7 @@ public class ClientDBDao implements ClientDao {
 
 
     public ClientDBDao() {
+
         try (Connection connection = DriverManager.getConnection(DB_URL, LOGIN, PASSWORD);
              Statement statement = connection.createStatement();
         ) {
@@ -124,6 +125,6 @@ public class ClientDBDao implements ClientDao {
                 .surname(surname)
                 .age(age)
                 .email(email)
-                .buildClient();
+                .build();
     }
 }
