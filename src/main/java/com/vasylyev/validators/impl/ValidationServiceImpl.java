@@ -3,7 +3,6 @@ package com.vasylyev.validators.impl;
 import com.vasylyev.exceptions.BusinessException;
 import com.vasylyev.validators.ValidationService;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidationServiceImpl implements ValidationService {

@@ -15,6 +15,7 @@ import com.vasylyev.validators.impl.ValidationServiceImpl;
 import com.vasylyev.view.AdminMenu;
 import com.vasylyev.view.ClientMenu;
 import com.vasylyev.view.MainMenu;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +24,7 @@ import java.io.InputStreamReader;
 public class App {
 
     public static void main(String[] args) throws IOException {
-
+/*
         ClientDao clientDao = new ClientDBDao();
         ProductDao productDao = new ProductDBDao();
         OrderDao orderDao = new OrderDBDao();
@@ -38,8 +39,11 @@ public class App {
         AdminMenu adminMenu = new AdminMenu(br, clientService, productService, orderService);
         ClientMenu clientMenu = new ClientMenu(br, clientService, productService, orderService);
 
-
         MainMenu menu = new MainMenu(br, adminMenu, clientMenu);
+        menu.showMenu();
+        */
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("app.xml");
+        MainMenu menu = (MainMenu) context.getBean("menu");
         menu.showMenu();
     }
 }
