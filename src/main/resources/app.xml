@@ -14,8 +14,10 @@
     <bean id="bufferedReader" class="java.io.BufferedReader">
         <constructor-arg name="in" ref="reader"/>
     </bean>
-
+<!--
     <bean id="clientDao" class="com.vasylyev.dao.impl.ClientDBDao"/>
+    -->
+    <bean id="clientDao" class="com.vasylyev.dao.impl.ClientEMDao"/>
     <bean id="productDao" class="com.vasylyev.dao.impl.ProductDBDao"/>
     <bean id="orderDao" class="com.vasylyev.dao.impl.OrderDBDao"/>
 

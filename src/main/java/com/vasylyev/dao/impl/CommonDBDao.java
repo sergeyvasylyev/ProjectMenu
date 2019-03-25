@@ -18,7 +18,7 @@ public class CommonDBDao {
     public static final String ClientSQLFindId = "select * from client where id = ?";
     public static final String ClientSQLFindPhone = "select * from client where phone = ?";
     public static final String ClientSQLUpdate = "update client set name = ? where id = ?";
-    public static final String ClientSQLGetList = "select id, name, surname, age, phone, email from client order by 1";
+    public static final String ClientSQLGetList = "select id, name, surname, age, phone, email from client order by id";
     public static final String ClientSQLDelete = "delete from client where id = ?";
 
     //product

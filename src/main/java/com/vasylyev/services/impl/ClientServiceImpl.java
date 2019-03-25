@@ -5,15 +5,21 @@ import com.vasylyev.domain.Client;
 import com.vasylyev.exceptions.BusinessException;
 import com.vasylyev.services.ClientService;
 import com.vasylyev.validators.ValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
 
+    @Autowired
+    @Qualifier(value = "clientDao")
     private ClientDao clientDao;
     private ValidationService validationService;
 
-    public ClientServiceImpl(ClientDao clientDao, ValidationService validationService) {
+    @Autowired
+    //public ClientServiceImpl(ClientDao clientDao, ValidationService validationService)
+    public ClientServiceImpl(@Qualifier(value = "clientDao") ClientDao clientDao, ValidationService validationService) {
         this.clientDao = clientDao;
         this.validationService = validationService;
     }

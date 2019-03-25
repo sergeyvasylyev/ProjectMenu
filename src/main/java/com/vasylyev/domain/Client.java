@@ -1,15 +1,29 @@
 package com.vasylyev.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "CLIENT")
 public class Client {
 
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private long id;
+
+    @Column(name = "NAME") //мапить также можно по гетерам
     private String name;
     private String surname;
     private int age;
     private String phone;
     private String email;
+
+    public Client(){
+
+    }
 
     public long getId() {
         return id;
