@@ -34,7 +34,7 @@ public class ProductServlet extends HttpServlet {
         }else {
             writer.println("<h4>Product list</h4>");
             for (Product product : productList) {
-                writer.println("<h5>" + product.toString() + "</h5>");
+                writer.println("<p>" + product.toString() + "</p>");
             }
         }
         writer.println("<a href=\"productMenu.html\"> Product menu</a><br>");

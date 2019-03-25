@@ -9,6 +9,7 @@ import com.vasylyev.services.ProductService;
 import com.vasylyev.services.impl.ClientServiceImpl;
 import com.vasylyev.services.impl.OrderServiceImpl;
 import com.vasylyev.services.impl.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;

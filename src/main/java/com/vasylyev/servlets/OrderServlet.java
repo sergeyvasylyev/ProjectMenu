@@ -33,7 +33,7 @@ public class OrderServlet extends HttpServlet {
         }else {
             writer.println("<h4>Order list</h4>");
             for (Order order : orderList) {
-                writer.println("<h5>" + order.toString() + "</h5>");
+                writer.println("<p>" + order.toString() + "</p>");
             }
         }
         writer.println("<a href=\"orderMenu.html\"> Order menu</a><br>");

@@ -15,7 +15,9 @@ import com.vasylyev.validators.impl.ValidationServiceImpl;
 import com.vasylyev.view.AdminMenu;
 import com.vasylyev.view.ClientMenu;
 import com.vasylyev.view.MainMenu;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,6 +44,7 @@ public class App {
         MainMenu menu = new MainMenu(br, adminMenu, clientMenu);
         menu.showMenu();
         */
+
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("app.xml");
         MainMenu menu = (MainMenu) context.getBean("menu");
         menu.showMenu();

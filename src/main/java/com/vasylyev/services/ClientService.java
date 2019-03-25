@@ -1,6 +1,7 @@
 package com.vasylyev.services;
 
 import com.vasylyev.domain.Client;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

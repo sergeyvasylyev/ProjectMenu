@@ -33,7 +33,7 @@ public class ClientServlet extends HttpServlet {
         }else {
             writer.println("<h4>Client list</h4>");
             for (Client client : clientList) {
-                writer.println("<h5>" + client.toString() + "</h5>");
+                writer.println("<p>" + client.toString() + "</p>");
             }
         }
         writer.println("<a href=\"clientMenu.html\"> Client menu</a><br>");

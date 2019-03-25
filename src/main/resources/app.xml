@@ -20,24 +20,23 @@
     <bean id="orderDao" class="com.vasylyev.dao.impl.OrderDBDao"/>
 
     <bean id="validationService" class="com.vasylyev.validators.impl.ValidationServiceImpl"/>
-
+    <!--
     <bean id="clientService" class="com.vasylyev.services.impl.ClientServiceImpl" autowire="constructor">
-        <!--
         <constructor-arg name="clientDao" ref="clientDao"/>
         <constructor-arg name="validationService" ref="validationService"/>
-        -->
     </bean>
+    -->
+    <bean id="clientService" class="com.vasylyev.services.impl.ClientServiceImpl" autowire="constructor"/>
     <bean id="productService" class="com.vasylyev.services.impl.ProductServiceImpl" autowire="constructor"/>
     <bean id="orderService" class="com.vasylyev.services.impl.OrderServiceImpl" autowire="constructor"/>
 
+    <!--
     <bean id="adminMenu" class="com.vasylyev.view.AdminMenu" autowire="constructor">
-        <!--
         <constructor-arg name="clientService" value="clientService"/>
         <constructor-arg name="br" value="bufferedReader"/>
-        -->
     </bean>
+    -->
+    <bean id="adminMenu" class="com.vasylyev.view.AdminMenu" autowire="constructor"/>
     <bean id="clientMenu" class="com.vasylyev.view.ClientMenu" autowire="constructor"/>
-
     <bean id="menu" class="com.vasylyev.view.MainMenu" autowire="constructor"/>
-
 </beans>
