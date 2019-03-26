@@ -3,16 +3,21 @@ package com.vasylyev.services.impl;
 import com.vasylyev.dao.ProductDao;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
+    @Qualifier(value = "productDao")
     private ProductDao productDao;
 
-    public ProductServiceImpl(ProductDao clientDao) {
-        this.productDao = clientDao;
+    @Autowired
+    public ProductServiceImpl(@Qualifier(value = "productDao")ProductDao productDao) {
+        this.productDao = productDao;
     }
 
     @Override

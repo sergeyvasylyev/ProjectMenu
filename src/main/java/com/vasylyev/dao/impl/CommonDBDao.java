@@ -13,7 +13,7 @@ public class CommonDBDao {
 
     //SQL Queries
     //client
-    public static final String ClientSQLConstructor = "CREATE TABLE IF NOT EXISTS client (ID INT AUTO_INCREMENT, NAME VARCHAR(50), SURNAME VARCHAR(50), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50))";
+    public static final String ClientSQLConstructor = "CREATE TABLE IF NOT EXISTS client (ID INT AUTO_INCREMENT, NAME VARCHAR(50), SURNAME VARCHAR(50), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50), PRIMARY KEY(id))";
     public static final String ClientSQLInsert = "insert into client (name, surname, age, phone, email) values (?,?,?,?,?)";
     public static final String ClientSQLFindId = "select * from client where id = ?";
     public static final String ClientSQLFindPhone = "select * from client where phone = ?";
@@ -22,7 +22,7 @@ public class CommonDBDao {
     public static final String ClientSQLDelete = "delete from client where id = ?";
 
     //product
-    public static final String ProductSQLConstructor = "CREATE TABLE IF NOT EXISTS product (ID INT AUTO_INCREMENT, NAME VARCHAR(50), PRICE DECIMAL(10,2))";
+    public static final String ProductSQLConstructor = "CREATE TABLE IF NOT EXISTS product (ID INT AUTO_INCREMENT, NAME VARCHAR(50), PRICE DECIMAL(10,2), PRIMARY KEY(id))";
     public static final String ProductSQLInsert = "insert into product (name, price) values (?,?)";
     public static final String ProductSQLFindName = "select * from product where name = ?";
     public static final String ProductSQLFindId = "select * from product where id = ?";
@@ -31,8 +31,18 @@ public class CommonDBDao {
     public static final String ProductSQLDelete = "delete from product where name = ?";
 
     //order
-    public static final String OrderSQLConstructor = "CREATE TABLE IF NOT EXISTS OrderDocument (id int AUTO_INCREMENT, ClientId int); " +
-            "CREATE TABLE  IF NOT EXISTS OrderProduct (id int AUTO_INCREMENT, OrderId int, ProductId int)";
+    public static final String OrderSQLConstructor ="CREATE TABLE IF NOT EXISTS OrderDocument (\n" +
+            "id int AUTO_INCREMENT, \n" +
+            "ClientId int,\n" +
+            "PRIMARY KEY(id),\n" +
+            "FOREIGN KEY (CLIENTID) REFERENCES CLIENT(ID));\n"+
+            "CREATE TABLE  IF NOT EXISTS OrderProduct (\n" +
+            "id int AUTO_INCREMENT,\n" +
+            "OrderId int,\n" +
+            "ProductId int,\n" +
+            "PRIMARY KEY(id),\n" +
+            "FOREIGN KEY (ProductId) REFERENCES Product(ID),\n"+
+            "FOREIGN KEY (OrderId ) REFERENCES OrderDocument (Id));";
     public static final String OrderSQLInsertOD = "insert into OrderDocument (ClientId) values (?)";
     public static final String OrderSQLInsertOP = "insert into OrderProduct (OrderId, ProductId) values (?,?)";
     public static final String OrderSQLMaxId = "select max(id) from OrderDocument";

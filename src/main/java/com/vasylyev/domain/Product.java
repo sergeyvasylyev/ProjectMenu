@@ -1,13 +1,27 @@
 package com.vasylyev.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "PRODUCT")
 public class Product {
 
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private long id;
     private String name;
     private BigDecimal price;
+
+    public Product() {
+    }
 
     public Product(String name, BigDecimal price) {
         this.name = name;

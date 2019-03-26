@@ -12,6 +12,7 @@ public class Client {
     @Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
+    @Column(name="id")
     private long id;
 
     @Column(name = "NAME") //мапить также можно по гетерам
@@ -20,6 +21,7 @@ public class Client {
     private int age;
     private String phone;
     private String email;
+
 
     public Client(){
 

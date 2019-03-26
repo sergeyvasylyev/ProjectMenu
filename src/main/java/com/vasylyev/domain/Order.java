@@ -1,13 +1,29 @@
 package com.vasylyev.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+//@Entity
+//@Table(name = "ORDERDOCUMENT")
+//@SecondaryTable(name = "ORDERPRODUCT")
 public class Order {
 
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private long id;
+
+    @OneToOne
+    @JoinColumn(name = "CLIENTID")
     private Client client;
+
     List<Product> products;
+
+    public Order(){
+    }
 
     public Order(Client client) {
         this.client = client;
@@ -31,6 +47,7 @@ public class Order {
     public void setId(long id) {
         this.id = id;
     }
+
 
     public Client getClient() {
         return client;
