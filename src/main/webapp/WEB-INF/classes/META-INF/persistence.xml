@@ -6,6 +6,8 @@
     <persistence-unit name="persistence-unit">
 
         <class>com.vasylyev.domain.Client</class>
+        <class>com.vasylyev.domain.Order</class>
+        <class>com.vasylyev.domain.Product</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
@@ -13,6 +15,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/LuxoftShop"/>
             <property name="javax.persistence.jdbc.user" value="test"/>
             <property name="javax.persistence.jdbc.password" value="test"/>
+            <property name="hbm2ddl.auto" value="create"/>
 
             <property name="hibernate.show_sql" value="true"/>
         </properties>
