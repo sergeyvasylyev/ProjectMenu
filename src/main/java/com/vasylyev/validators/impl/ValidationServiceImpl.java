@@ -2,9 +2,11 @@ package com.vasylyev.validators.impl;
 
 import com.vasylyev.exceptions.BusinessException;
 import com.vasylyev.validators.ValidationService;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
 
+@Component
 public class ValidationServiceImpl implements ValidationService {
 
     @Override

@@ -1,23 +1,21 @@
 package com.vasylyev.view;
 
-import com.vasylyev.domain.Client;
-import com.vasylyev.domain.Order;
-import com.vasylyev.domain.Product;
 import com.vasylyev.services.ClientService;
 import com.vasylyev.services.OrderService;
 import com.vasylyev.services.ProductService;
 import com.vasylyev.services.impl.ClientServiceImpl;
 import com.vasylyev.services.impl.OrderServiceImpl;
 import com.vasylyev.services.impl.ProductServiceImpl;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import static com.vasylyev.view.CommonMethods.InputString;
 import static com.vasylyev.view.CommonMethods.readLong;
 
+@Component
 public class ClientMenu {
     private final BufferedReader br;
     private final ClientService clientService;
@@ -29,6 +27,13 @@ public class ClientMenu {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
+    }
+
+    public ClientMenu() {
+        this.br = new BufferedReader(new InputStreamReader(System.in));
+        this.clientService = new ClientServiceImpl();
+        this.productService = new ProductServiceImpl();
+        this.orderService = new OrderServiceImpl();
     }
 
     public void show() throws IOException {
@@ -99,6 +104,5 @@ public class ClientMenu {
         System.out.println("R. Return");
         System.out.println("E. Exit");
     }
-
 
 }

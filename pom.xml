@@ -39,6 +39,7 @@
         <com.h2database.version>1.4.197</com.h2database.version>
         <javax.servlet.version>4.0.1</javax.servlet.version>
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
+        <org.hibernate.version>5.4.2.Final</org.hibernate.version>
     </properties>
     <dependencies>
         <dependency>
@@ -73,6 +74,12 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${org.hibernate.version}</version>
+        </dependency>
+
 
     </dependencies>
 

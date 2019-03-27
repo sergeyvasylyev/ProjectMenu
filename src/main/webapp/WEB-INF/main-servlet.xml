@@ -7,10 +7,15 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:component-scan base-package="com.vasylyev.controllers"/>
-
+<!--
     <bean id="clientDao" class="com.vasylyev.dao.impl.ClientDBDao"/>
     <bean id="productDao" class="com.vasylyev.dao.impl.ProductDBDao"/>
     <bean id="orderDao" class="com.vasylyev.dao.impl.OrderDBDao"/>
+    -->
+    <!--
+    <bean id="clientDao" class="com.vasylyev.dao.impl.ClientEMDao"/>
+    <bean id="productDao" class="com.vasylyev.dao.impl.ProductEMDao"/>
+    <bean id="orderDao" class="com.vasylyev.dao.impl.OrderEMDao"/>
 
     <bean id="validationService" class="com.vasylyev.validators.impl.ValidationServiceImpl"/>
 
@@ -22,5 +27,5 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
+-->
 </beans>

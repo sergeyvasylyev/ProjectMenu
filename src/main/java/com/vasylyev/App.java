@@ -1,5 +1,6 @@
 package com.vasylyev;
 
+import com.vasylyev.config.AppConfig;
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.dao.ProductDao;
@@ -16,6 +17,9 @@ import com.vasylyev.view.AdminMenu;
 import com.vasylyev.view.ClientMenu;
 import com.vasylyev.view.MainMenu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 
@@ -26,7 +30,9 @@ import java.io.InputStreamReader;
 public class App {
 
     public static void main(String[] args) throws IOException {
-/*
+        ////////////////////////
+        //1. Default declaration
+        /*
         ClientDao clientDao = new ClientDBDao();
         ProductDao productDao = new ProductDBDao();
         OrderDao orderDao = new OrderDBDao();
@@ -45,7 +51,14 @@ public class App {
         menu.showMenu();
         */
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("app.xml");
+        ///////////////////////////
+        //2. Spring xml configuration file
+        //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("app.xml");
+        //ClassPathBeanDefinitionScanner
+
+        ///////////////////////////
+        //3. Spring Annotations + AppConfig class
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         MainMenu menu = (MainMenu) context.getBean("menu");
         menu.showMenu();
     }

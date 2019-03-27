@@ -4,6 +4,7 @@ import com.vasylyev.dao.ClientDao;
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.dao.ProductDao;
 import com.vasylyev.dao.impl.ClientDBDao;
+import com.vasylyev.dao.impl.ClientEMDao;
 import com.vasylyev.dao.impl.OrderDBDao;
 import com.vasylyev.dao.impl.ProductDBDao;
 import com.vasylyev.services.ClientService;
@@ -24,7 +25,8 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class WebApp implements ServletContextListener {
 
-    ClientDao clientDao = new ClientDBDao();
+    ClientDao clientDao = new ClientEMDao();
+    //ClientDao clientDao = new ClientDBDao();
     ProductDao productDao = new ProductDBDao();
     OrderDao orderDao = new OrderDBDao();
     ValidationService validationService = new ValidationServiceImpl();

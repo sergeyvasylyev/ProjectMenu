@@ -2,6 +2,8 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.domain.Client;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,8 +11,8 @@ import java.util.List;
 
 import static com.vasylyev.dao.impl.CommonDBDao.*;
 
+@Component
 public class ClientDBDao implements ClientDao {
-
 
     public ClientDBDao() {
 
