@@ -2,6 +2,8 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.ProductDao;
 import com.vasylyev.domain.Product;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import static com.vasylyev.dao.impl.CommonDBDao.*;
 
+@Component
 public class ProductDBDao implements ProductDao {
 
     public ProductDBDao() {

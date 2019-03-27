@@ -8,7 +8,6 @@ import com.vasylyev.services.ProductService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommonMethods {

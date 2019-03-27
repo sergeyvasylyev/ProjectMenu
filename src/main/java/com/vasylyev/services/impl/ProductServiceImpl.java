@@ -4,21 +4,23 @@ import com.vasylyev.dao.ProductDao;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Component
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    @Qualifier(value = "productDao")
     private ProductDao productDao;
 
     @Autowired
-    public ProductServiceImpl(@Qualifier(value = "productDao")ProductDao productDao) {
+    public ProductServiceImpl(ProductDao productDao) {
         this.productDao = productDao;
     }
+
+    public ProductServiceImpl(){}
 
     @Override
     public void createProduct(String name, BigDecimal price) {

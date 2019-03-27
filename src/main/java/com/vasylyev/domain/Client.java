@@ -10,21 +10,19 @@ import java.util.Objects;
 public class Client {
 
     @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name="id")
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "NAME") //мапить также можно по гетерам
+    @Column(name = "NAME")
     private String name;
     private String surname;
     private int age;
     private String phone;
     private String email;
 
-
-    public Client(){
-
+    public Client() {
     }
 
     public long getId() {
@@ -112,7 +110,7 @@ public class Client {
         return Objects.hash(id, name, surname, age, email, phone);
     }
 
-    public static class Builder{
+    public static class Builder {
         private long id;
         private String name;
         private String phone;
@@ -131,37 +129,37 @@ public class Client {
             this.phone = phone;
         }
 
-        public Builder id(long vId){
+        public Builder id(long vId) {
             id = vId;
             return this;
         }
 
-        public Builder name(String vName){
+        public Builder name(String vName) {
             name = vName;
             return this;
         }
 
-        public Builder phone(String vPhone){
+        public Builder phone(String vPhone) {
             phone = vPhone;
             return this;
         }
 
-        public Builder surname(String vSurname){
+        public Builder surname(String vSurname) {
             surname = vSurname;
             return this;
         }
 
-        public Builder age(int vAge){
+        public Builder age(int vAge) {
             age = vAge;
             return this;
         }
 
-        public Builder email(String vEmail){
+        public Builder email(String vEmail) {
             email = vEmail;
             return this;
         }
 
-        public Client build(){
+        public Client build() {
             return new Client(this);
         }
     }

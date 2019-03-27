@@ -2,12 +2,16 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.ProductDao;
 import com.vasylyev.domain.Product;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
+@Component
+@Primary
 public class ProductEMDao implements ProductDao {
 
     private EntityManager entityManager;

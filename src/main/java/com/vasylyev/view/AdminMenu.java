@@ -1,8 +1,6 @@
 package com.vasylyev.view;
 
 import com.vasylyev.domain.Client;
-import com.vasylyev.domain.Order;
-import com.vasylyev.domain.Product;
 import com.vasylyev.services.ClientService;
 import com.vasylyev.services.OrderService;
 import com.vasylyev.services.ProductService;
@@ -10,20 +8,24 @@ import com.vasylyev.services.impl.ClientServiceImpl;
 import com.vasylyev.services.impl.OrderServiceImpl;
 import com.vasylyev.services.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static com.vasylyev.view.CommonMethods.*;
 
+@Component
 public class AdminMenu {
 
     private final BufferedReader br;
+    @Autowired
     private final ClientService clientService;
+    @Autowired
     private final ProductService productService;
+    @Autowired
     private final OrderService orderService;
 
     public AdminMenu(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService) {
@@ -31,6 +33,13 @@ public class AdminMenu {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
+    }
+
+    public AdminMenu(){
+        this.br = new BufferedReader(new InputStreamReader(System.in));
+        this.clientService = new ClientServiceImpl();
+        this.productService = new ProductServiceImpl();
+        this.orderService = new OrderServiceImpl();
     }
 
     public void show() throws IOException {

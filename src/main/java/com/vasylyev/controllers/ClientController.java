@@ -14,7 +14,6 @@ import java.util.List;
 @Controller
 public class ClientController {
 
-    @Autowired
     private ClientService clientService;
 
     @GetMapping("/clients1")

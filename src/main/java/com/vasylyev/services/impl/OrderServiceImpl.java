@@ -7,6 +7,7 @@ import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.OrderService;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 import static com.vasylyev.services.impl.ClientServiceImpl.showClient;
 import static com.vasylyev.services.impl.ProductServiceImpl.showProduct;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
     private ClientDao clientDao;
@@ -24,6 +26,9 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao = orderDao;
         this.clientDao = clientDao;
         this.productDao = productDao;
+    }
+
+    public OrderServiceImpl() {
     }
 
     @Override
@@ -66,12 +71,11 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getOrderList();
     }
 
-    private void showOrder(Long id, Order order){
+    private void showOrder(Long id, Order order) {
         String orderResult;
         if (order != null) {
             orderResult = "Found order: " + order;
-        }
-        else {
+        } else {
             orderResult = "Order not found: " + id;
         }
         System.out.println(orderResult);

@@ -1,13 +1,18 @@
 package com.vasylyev.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
+@Component("menu")
 public class MainMenu {
-
+    @Autowired
     private final BufferedReader br;
+    @Autowired
     private final AdminMenu adminMenu;
+    @Autowired
     private final ClientMenu clientMenu;
 
     public MainMenu(BufferedReader br, AdminMenu adminMenu, ClientMenu clientMenu) {
@@ -37,7 +42,6 @@ public class MainMenu {
                     System.out.println("Wrong input!");
                     break;
             }
-
         }
     }
 }

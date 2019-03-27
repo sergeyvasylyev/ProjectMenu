@@ -4,6 +4,8 @@ import com.vasylyev.dao.OrderDao;
 import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import static com.vasylyev.dao.impl.CommonDBDao.*;
 
+@Component
 public class OrderDBDao implements OrderDao {
 
     public OrderDBDao() {
