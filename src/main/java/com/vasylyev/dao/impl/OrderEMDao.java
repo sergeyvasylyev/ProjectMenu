@@ -19,12 +19,17 @@ public class OrderEMDao implements OrderDao {
 
     @Override
     public void saveOrder(Order order) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(order);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public Order findOrder(Long id) {
-        return null;
+        entityManager.getTransaction().begin();
+        Order order = entityManager.find(Order.class, id);
+        entityManager.getTransaction().commit();
+        return order;
     }
 
     @Override
@@ -37,6 +42,8 @@ public class OrderEMDao implements OrderDao {
 
     @Override
     public void deleteOrder(Order order) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(order);
+        entityManager.getTransaction().commit();
     }
 }

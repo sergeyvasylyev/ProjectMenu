@@ -1,9 +1,5 @@
 package com.vasylyev.dao.impl;
 
-import com.vasylyev.domain.Product;
-
-import java.sql.*;
-
 public class CommonDBDao {
 
     //public static final String DB_URL = "jdbc:h2:./LuxoftShop";
@@ -31,8 +27,9 @@ public class CommonDBDao {
     public static final String ProductSQLDelete = "delete from product where name = ?";
 
     //order
+    /*
     public static final String OrderSQLConstructor ="CREATE TABLE IF NOT EXISTS OrderDocument (\n" +
-            "id int AUTO_INCREMENT, \n" +
+            "id int AUTO_INCREMENT,\n" +
             "ClientId int,\n" +
             "PRIMARY KEY(id),\n" +
             "FOREIGN KEY (CLIENTID) REFERENCES CLIENT(ID));\n"+
@@ -43,6 +40,8 @@ public class CommonDBDao {
             "PRIMARY KEY(id),\n" +
             "FOREIGN KEY (ProductId) REFERENCES Product(ID),\n"+
             "FOREIGN KEY (OrderId ) REFERENCES OrderDocument (Id));";
+    */
+    public static final String OrderSQLConstructor ="";
     public static final String OrderSQLInsertOD = "insert into OrderDocument (ClientId) values (?)";
     public static final String OrderSQLInsertOP = "insert into OrderProduct (OrderId, ProductId) values (?,?)";
     public static final String OrderSQLMaxId = "select max(id) from OrderDocument";

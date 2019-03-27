@@ -18,7 +18,6 @@ public class ClientServiceImpl implements ClientService {
     private ValidationService validationService;
 
     @Autowired
-    //public ClientServiceImpl(ClientDao clientDao, ValidationService validationService)
     public ClientServiceImpl(@Qualifier(value = "clientDao") ClientDao clientDao, ValidationService validationService) {
         this.clientDao = clientDao;
         this.validationService = validationService;

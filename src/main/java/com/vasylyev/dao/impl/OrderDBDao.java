@@ -12,7 +12,6 @@ import java.util.List;
 
 import static com.vasylyev.dao.impl.CommonDBDao.*;
 
-
 public class OrderDBDao implements OrderDao {
 
     public OrderDBDao() {

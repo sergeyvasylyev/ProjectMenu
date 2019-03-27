@@ -25,18 +25,32 @@ public class ProductEMDao implements ProductDao {
     }
 
     @Override
-    public Product findProduct(String productName) {
-        return null;
+    public Product findProduct(Long id) {
+        entityManager.getTransaction().begin();
+        Product product = entityManager.find(Product.class, id);
+        entityManager.getTransaction().commit();
+        return product;
     }
 
     @Override
-    public Product findProduct(Long id) {
-        return null;
+    public Product findProduct(String productName) {
+        entityManager.getTransaction().begin();
+        String hql = "from Product where name = :name";
+        Product product = entityManager.createQuery(hql,Product.class)
+                .setParameter("name", productName)
+                .getResultList()
+                .stream().findFirst()
+                .orElse(null);
+        entityManager.getTransaction().commit();
+        return product;
     }
 
     @Override
     public void modifyProduct(Product product, String newName) {
-
+        entityManager.getTransaction().begin();
+        product.setName(newName);
+        entityManager.persist(product);
+        entityManager.getTransaction().commit();
     }
 
     @Override
@@ -49,6 +63,8 @@ public class ProductEMDao implements ProductDao {
 
     @Override
     public void deleteProduct(Product product) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(product);
+        entityManager.getTransaction().commit();
     }
 }
