@@ -18,10 +18,13 @@ import static com.vasylyev.view.CommonMethods.readLong;
 
 @Component
 public class ClientMenu {
-
+    @Autowired
     private final BufferedReader br;
+    @Autowired
     private final ClientService clientService;
+    @Autowired
     private final ProductService productService;
+    @Autowired
     private final OrderService orderService;
 
     public ClientMenu(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService) {

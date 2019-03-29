@@ -19,15 +19,13 @@ import static com.vasylyev.services.impl.ProductServiceImpl.showProduct;
 @Component
 public class OrderServiceImpl implements OrderService {
 
+    @Autowired
     private ClientDao clientDao;
+    @Autowired
     private ProductDao productDao;
+    @Autowired
     private OrderDao orderDao;
 
-    public OrderServiceImpl(ClientDao clientDao, ProductDao productDao, OrderDao orderDao) {
-        this.orderDao = orderDao;
-        this.clientDao = clientDao;
-        this.productDao = productDao;
-    }
 
     @Override
     public void createOrder(Long id, List<String> productNameList) {

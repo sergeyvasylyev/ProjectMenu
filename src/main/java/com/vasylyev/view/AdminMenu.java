@@ -15,10 +15,13 @@ import static com.vasylyev.view.CommonMethods.*;
 
 @Component
 public class AdminMenu {
-
+    @Autowired
     private final BufferedReader br;
+    @Autowired
     private final ClientService clientService;
+    @Autowired
     private final ProductService productService;
+    @Autowired
     private final OrderService orderService;
 
     public AdminMenu(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService) {

@@ -9,8 +9,11 @@ import java.io.IOException;
 @Component("menu")
 public class MainMenu {
 
+    @Autowired
     private final BufferedReader br;
+    @Autowired
     private final AdminMenu adminMenu;
+    @Autowired
     private final ClientMenu clientMenu;
 
     public MainMenu(BufferedReader br, AdminMenu adminMenu, ClientMenu clientMenu) {

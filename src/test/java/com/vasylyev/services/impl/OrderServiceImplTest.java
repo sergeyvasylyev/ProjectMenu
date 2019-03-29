@@ -36,7 +36,7 @@ public class OrderServiceImplTest {
 
     @Before
     public void init(){
-        orderService = new OrderServiceImpl(clientDao, productDao, orderDao);
+        orderService = new OrderServiceImpl();
     }
 
     @Test
