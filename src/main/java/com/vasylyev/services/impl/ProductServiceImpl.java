@@ -12,15 +12,10 @@ import java.util.List;
 @Component
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductDao productDao;
-
-    @Autowired
     public ProductServiceImpl(ProductDao productDao) {
         this.productDao = productDao;
     }
-
-    public ProductServiceImpl(){}
 
     @Override
     public void createProduct(String name, BigDecimal price) {

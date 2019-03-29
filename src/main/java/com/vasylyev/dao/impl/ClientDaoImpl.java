@@ -2,14 +2,15 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.domain.Client;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static javax.swing.UIManager.get;
-
+@Component
 public class ClientDaoImpl implements ClientDao {
 
     private static ClientDao clientDao;

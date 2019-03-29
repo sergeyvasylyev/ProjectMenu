@@ -23,7 +23,6 @@ public class ClientFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String age = servletRequest.getParameter("age");
         try{
-            //Integer.parseInt(age);
             validationService.validateAge(Integer.parseInt(age));
         }catch (NumberFormatException | BusinessException e){
             PrintWriter writer = servletResponse.getWriter();

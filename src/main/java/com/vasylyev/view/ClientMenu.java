@@ -6,6 +6,7 @@ import com.vasylyev.services.ProductService;
 import com.vasylyev.services.impl.ClientServiceImpl;
 import com.vasylyev.services.impl.OrderServiceImpl;
 import com.vasylyev.services.impl.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -17,6 +18,7 @@ import static com.vasylyev.view.CommonMethods.readLong;
 
 @Component
 public class ClientMenu {
+
     private final BufferedReader br;
     private final ClientService clientService;
     private final ProductService productService;
@@ -27,13 +29,6 @@ public class ClientMenu {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
-    }
-
-    public ClientMenu() {
-        this.br = new BufferedReader(new InputStreamReader(System.in));
-        this.clientService = new ClientServiceImpl();
-        this.productService = new ProductServiceImpl();
-        this.orderService = new OrderServiceImpl();
     }
 
     public void show() throws IOException {

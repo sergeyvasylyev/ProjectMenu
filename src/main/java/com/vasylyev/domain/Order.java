@@ -6,9 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-//@Entity
-//@Table(name = "ORDERDOCUMENT")
-//@SecondaryTable(name = "ORDERPRODUCT")
+@Entity
+@Table(name = "ORDERDOCUMENT")
 public class Order {
 
     @Id
@@ -17,9 +16,10 @@ public class Order {
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "CLIENTID")
+    @JoinColumn(name = "CLIENT_ID")
     private Client client;
 
+    @OneToMany
     List<Product> products;
 
     public Order(){

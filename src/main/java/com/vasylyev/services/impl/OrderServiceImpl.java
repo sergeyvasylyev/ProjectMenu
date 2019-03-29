@@ -7,6 +7,7 @@ import com.vasylyev.domain.Client;
 import com.vasylyev.domain.Order;
 import com.vasylyev.domain.Product;
 import com.vasylyev.services.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,9 +27,6 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao = orderDao;
         this.clientDao = clientDao;
         this.productDao = productDao;
-    }
-
-    public OrderServiceImpl() {
     }
 
     @Override

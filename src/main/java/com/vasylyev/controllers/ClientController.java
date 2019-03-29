@@ -18,7 +18,6 @@ public class ClientController {
 
     @GetMapping("/clients1")
     public String showClients(ModelMap modelMap){
-        //modelMap.put("message",clientService.getAllClients());
 
         String clientListMessage = "";
         List<Client> clientList = clientService.getAllClients();
@@ -29,12 +28,5 @@ public class ClientController {
         modelMap.put("message",clientListMessage);
         return "clients";
     }
-/*
-    @PostMapping("/clients1")
-    public void addClient(){
-        @RequestParam()
-        clientService.createClient();
 
-    }
-    */
 }
