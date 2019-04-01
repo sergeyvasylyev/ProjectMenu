@@ -2,12 +2,15 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.domain.Order;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class OrderDaoImpl implements OrderDao {
 
     private static OrderDao orderDao;

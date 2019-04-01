@@ -15,13 +15,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
 
-    @Autowired
-    public ProductServiceImpl(ProductDao productDao) {
-        this.productDao = productDao;
-    }
-
-    public ProductServiceImpl(){}
-
     @Override
     public void createProduct(String name, BigDecimal price) {
         Product product = new Product(name, price);

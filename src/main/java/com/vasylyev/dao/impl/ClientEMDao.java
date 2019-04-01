@@ -2,6 +2,7 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.ClientDao;
 import com.vasylyev.domain.Client;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +15,8 @@ import java.util.List;
 @Primary
 public class ClientEMDao implements ClientDao {
 
+    @Autowired
     private EntityManager entityManager;
-
-    public ClientEMDao() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence-unit");
-        this.entityManager = factory.createEntityManager();
-    }
 
     @Override
     public void saveClient(Client client) {

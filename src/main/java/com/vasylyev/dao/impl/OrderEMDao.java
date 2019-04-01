@@ -2,6 +2,7 @@ package com.vasylyev.dao.impl;
 
 import com.vasylyev.dao.OrderDao;
 import com.vasylyev.domain.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +15,8 @@ import java.util.List;
 @Primary
 public class OrderEMDao implements OrderDao {
 
+    @Autowired
     private EntityManager entityManager;
-
-    public OrderEMDao() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence-unit");
-        this.entityManager = factory.createEntityManager();
-    }
 
     @Override
     public void saveOrder(Order order) {

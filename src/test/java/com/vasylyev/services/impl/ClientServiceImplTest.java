@@ -24,7 +24,7 @@ public class ClientServiceImplTest {
 
     @Before
     public void init(){
-        clientService = new ClientServiceImpl(clientDao, validationService);
+        clientService = new ClientServiceImpl();
     }
 
     @Test

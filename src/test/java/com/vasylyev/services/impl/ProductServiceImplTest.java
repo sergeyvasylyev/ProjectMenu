@@ -25,7 +25,7 @@ public class ProductServiceImplTest {
 
     @Before
     public void init(){
-        productService = new ProductServiceImpl(productDao);
+        productService = new ProductServiceImpl();
     }
 
     @Test

@@ -15,15 +15,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private ClientDao clientDao;
+    @Autowired
     private ValidationService validationService;
-
-    public ClientServiceImpl(ClientDao clientDao, ValidationService validationService) {
-        this.clientDao = clientDao;
-        this.validationService = validationService;
-    }
-
-    public ClientServiceImpl() {
-    }
 
     @Override
     public void createClient(String name, String surname, String phone) {

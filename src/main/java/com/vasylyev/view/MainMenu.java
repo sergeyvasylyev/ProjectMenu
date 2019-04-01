@@ -8,6 +8,7 @@ import java.io.IOException;
 
 @Component("menu")
 public class MainMenu {
+
     @Autowired
     private final BufferedReader br;
     @Autowired
